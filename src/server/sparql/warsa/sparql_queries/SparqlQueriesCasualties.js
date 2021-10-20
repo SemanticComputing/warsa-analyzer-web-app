@@ -73,7 +73,7 @@ export const deathsByMonthQuery = `
     ?record a :DeathRecord .
     ?record :date_of_death ?date_of_death .
     BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
-    BIND(?category AS ?prefLabel)
+    BIND(CONCAT(?category, ' ') AS ?prefLabel)
     FILTER (str(?date_of_death) > "1939-05-01")
     FILTER (str(?date_of_death) < "1945-05-01")
   }

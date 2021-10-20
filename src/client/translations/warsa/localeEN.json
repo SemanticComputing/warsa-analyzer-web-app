@@ -1,13 +1,13 @@
 {
   "languageLabel": "English",
   "html": {
-    "title": "Sampo-UI – A framework for building user interfaces for semantic portals",
-    "description": "The Sampo-UI framework makes it possible to create highly customizable, user-friendly, and responsive user interfaces using current state-of-the-art JavaScript libraries and data from SPARQL endpoints."
+    "title": "WarSampo Analyzer Web App",
+    "description": "Tools for analyzing WarSampo casualties perspective"
   },
   "appTitle": {
-    "short": "Sampo-UI",
-    "long": "&nbsp; &nbsp; Sampo-UI &nbsp; &nbsp;",
-    "subheading": "\"Here to forge for us the Sampo, Hammer us the lid in colors\""
+    "short": "WARSA",
+    "long": "WarSampo Analyzer",
+    "subheading": "Tools for analyzing WarSampo data"
   },
   "appDescription1": "Sampo is a web service for searching and studying place names. The search results can be viewed as a table, on maps, and as statistical distributions. Historical and current background maps are provided.",
   "appDescription2": "Start by choosing source dataset(s) and input a place name on the search field. Alternatively you can search by area.",
@@ -186,7 +186,7 @@
     "casualties": {
       "label": "Casualties",
       "facetResultsType": "casualties",
-      "shortDescription": "Casualties",
+      "shortDescription": "Finnishs war casualties in the Second World War",
       "longDescription": "<p class=\"MuiTypography-root MuiTypography-body1 MuiTypography-paragraph\"> </p>",
       "instancePage": {
         "label": "Death record",

@@ -78,6 +78,7 @@ const Casualties = props => {
             dropdownForResultClasses
             facetResultsType={intl.get(`perspectives.${perspective.id}.facetResultsType`)}
             resultClasses={['hisclass5', 'deathsByMonth']}
+            layoutConfig={props.layoutConfig}
             doNotRenderOnMount
           />}
       />
