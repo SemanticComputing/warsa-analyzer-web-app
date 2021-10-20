@@ -1,18 +1,9 @@
 import { casualtiesConfig } from './perspective_configs/CasualtiesConfig'
 import {
-  productionPlacesQuery,
-  lastKnownLocationsQuery,
-  migrationsQuery,
-  migrationsDialogQuery,
-  manuscriptPropertiesInstancePage,
-  expressionProperties,
-  collectionProperties,
-  productionsByDecadeQuery,
-  productionsByDecadeAndCountryQuery,
-  eventsByDecadeQuery,
-  manuscriptInstancePageNetworkLinksQuery,
-  manuscriptFacetResultsNetworkLinksQuery,
-  manuscriptNetworkNodesQuery,
+  casualtyPropertiesFacetResultsQuery,
+  casualtyPropertiesInstancePage,
+  deathsByMonthQuery,
+  deathsByHisclassQuery,
   knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -25,7 +16,8 @@ import {
   mapLineChart,
   mapMultipleLineChart,
   linearScale,
-  toBarChartRaceFormat
+  toBarChartRaceFormat,
+  mapPieChart
 } from '../Mappers'
 
 export const backendSearchConfig = {

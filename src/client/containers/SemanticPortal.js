@@ -47,9 +47,9 @@ import {
   fetchKnowledgeGraphMetadata
 } from '../actions'
 import { filterResults } from '../selectors'
-import { perspectiveConfig } from '../configs/sampo/PerspectiveConfig'
-import { perspectiveConfigOnlyInfoPages } from '../configs/sampo/PerspectiveConfigOnlyInfoPages'
-import { rootUrl, layoutConfig } from '../configs/sampo/GeneralConfig'
+import { perspectiveConfig } from '../configs/warsa/PerspectiveConfig'
+import { perspectiveConfigOnlyInfoPages } from '../configs/warsa/PerspectiveConfigOnlyInfoPages'
+import { rootUrl, layoutConfig } from '../configs/warsa/GeneralConfig'
 
 // ** General components **
 // import InfoHeader from '../components/main_layout/InfoHeader'
@@ -72,7 +72,7 @@ const FacetBar = lazy(() => import('../components/facet_bar/FacetBar'))
 // import InstanceHomePage from '../components/perspectives/sampo/InstanceHomePage'
 // import Footer from '../components/perspectives/sampo/Footer'
 // import KnowledgeGraphMetadataTable from '../components/perspectives/sampo/KnowledgeGraphMetadataTable'
-const portalID = 'sampo'
+const portalID = 'warsa'
 const TopBar = lazy(() => import('../components/perspectives/' + portalID + '/TopBar'))
 const Main = lazy(() => import('../components/perspectives/' + portalID + '/Main'))
 const FacetedSearchPerspective = lazy(() => import('../components/perspectives/' + portalID + '/FacetedSearchPerspective'))
@@ -623,28 +623,9 @@ const SemanticPortal = props => {
 const mapStateToProps = state => {
   const { clientFSResults, clientFSFacetValues } = filterResults(state.clientSideFacetedSearch)
   return {
-    perspective1: state.perspective1,
-    perspective1Facets: state.perspective1Facets,
-    perspective1FacetsConstrainSelf: state.perspective1FacetsConstrainSelf,
-    perspective2: state.perspective2,
-    perspective2Facets: state.perspective2Facets,
-    perspective2FacetsConstrainSelf: state.perspective2FacetsConstrainSelf,
-    perspective3: state.perspective3,
-    perspective3Facets: state.perspective3Facets,
-    perspective3FacetsConstrainSelf: state.perspective3FacetsConstrainSelf,
-    manuscripts: state.manuscripts,
-    works: state.works,
-    events: state.events,
-    actors: state.actors,
-    expressions: state.expressions,
-    collections: state.collections,
-    places: state.places,
-    finds: state.finds,
-    findsFacets: state.findsFacets,
-    findsFacetsConstrainSelf: state.findsFacetsConstrainSelf,
-    emloActors: state.emloActors,
-    emloActorsFacets: state.emloActorsFacets,
-    emloActorsFacetsConstrainSelf: state.emloActorsFacetsConstrainSelf,
+    casualties: state.casualties,
+    casualtiesFacets: state.casualtiesFacets,
+    casualtiesFacetsConstrainSelf: state.casualtiesFacetsConstrainSelf,
     leafletMap: state.leafletMap,
     fullTextSearch: state.fullTextSearch,
     clientFSState: state.clientSideFacetedSearch,
@@ -702,35 +683,18 @@ SemanticPortal.propTypes = {
   /**
    * Faceted search configs and results of 'Perspective 1'.
    */
-  perspective1: PropTypes.object.isRequired,
+  casualties: PropTypes.object.isRequired,
   /**
    * Facet configs and values of 'Perspective 1'.
    */
-  perspective1Facets: PropTypes.object.isRequired,
+  casualtiesFacets: PropTypes.object.isRequired,
   /**
    * Facet configs and values for facets that restrict themselves of 'Perspective 1'.
    */
-  perspective1FacetsConstrainSelf: PropTypes.object.isRequired,
+  casualtiesFacetsConstrainSelf: PropTypes.object.isRequired,
   /**
    * Faceted search configs and results of 'Perspective 2'.
    */
-  perspective2: PropTypes.object.isRequired,
-  /**
-   * Facet configs and values of 'Perspective 2'.
-   */
-  perspective2Facets: PropTypes.object.isRequired,
-  /**
-   * Faceted search configs and results of 'Perspective 3'.
-   */
-  perspective3: PropTypes.object.isRequired,
-  /**
-   * Facet configs and values of 'Perspective 3'.
-   */
-  perspective3Facets: PropTypes.object.isRequired,
-  /**
-   * Faceted search configs and results of 'Places'.
-   */
-  places: PropTypes.object.isRequired,
   /**
    * Leaflet map config and external layers.
    */
