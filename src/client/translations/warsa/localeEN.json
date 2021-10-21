@@ -72,7 +72,8 @@
   },
   "tabs": {
     "table": "table",
-    "pie_chart": "pie_chart",
+    "pie_chart": "pie chart",
+    "line_chart": "line chart",
     "map": "map",
     "production_places": "production places",
     "production_places_heatmap": "production heatmap",
@@ -184,8 +185,11 @@
       "deathsByGender": "Gender",
       "deathsByMaritalStatus": "Marital status",
       "deathsByMotherTongue": "Mother tongue",
-      "deathsByMonth": "death month"
-    }
+      "deathsByMonth": "death month",
+      "deathsByAge": "Age",
+      "deathsByNumberOfChildren": "Number of children"
+    },
+    "numberOfCasualties": "Number of casualties"
   },
   "perspectives": {
     "casualties": {

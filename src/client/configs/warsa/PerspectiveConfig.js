@@ -28,6 +28,11 @@ export const perspectiveConfig = [
         id: 'pie_chart',
         value: 1,
         icon: <PieChartIcon />
+      },
+      {
+        id: 'line_chart',
+        value: 1,
+        icon: <LineChartIcon />
       }
     ],
     instancePageTabs: [

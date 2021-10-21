@@ -159,7 +159,9 @@ const resultClasses = new Set([
   'deathsByGender',
   'deathsByPerishingCategory',
   'deathsByMotherTongue',
-  'deahsByGender'
+  'deahsByGender',
+  'deathsByNumberOfChildren',
+  'deathsByAge'
 ])
 
 const casualties = (state = INITIAL_STATE, action) => {

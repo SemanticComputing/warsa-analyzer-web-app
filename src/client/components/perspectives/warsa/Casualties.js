@@ -82,6 +82,34 @@ const Casualties = props => {
             doNotRenderOnMount
           />}
       />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/line_chart`}
+        render={() =>
+          <ApexChart
+            pageType='facetResults'
+            rawData={props.perspectiveState.results}
+            rawDataUpdateID={props.perspectiveState.resultUpdateID}
+            facetUpdateID={props.facetState.facetUpdateID}
+            fetching={props.perspectiveState.fetching}
+            fetchData={props.fetchResults}
+            createChartData={createSingleLineChartData}
+            title=''
+            xaxisTitle=''
+            xaxisType='category'
+            xaxisTickAmount={30}
+            yaxisTitle={intl.get('apexCharts.numberOfCasualties')}
+            seriesTitle={intl.get('apexCharts.numberOfCasualties')}
+            stroke={{ width: 2 }}
+            resultClass='deathsByNumberOfChildren'
+            facetClass='casualties'
+            dropdownForResultClasses
+            perspectiveStateType={intl.get(`perspectives.${perspective.id}.perspectiveStateType`)}
+            resultClasses={['deathsByAge', 'deathsByNumberOfChildren']}
+            doNotRenderOnMount
+            screenSize={props.screenSize}
+            layoutConfig={props.layoutConfig}
+          />}
+      />
     </>
   )
 }

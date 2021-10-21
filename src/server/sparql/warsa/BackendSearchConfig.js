@@ -8,6 +8,8 @@ import {
   deathsByPerishingCategoryQuery,
   deathsByMotherTongueQuery,
   deathsByGenderQuery,
+  deathsByNumberOfChildrenQuery,
+  deathsByAgeQuery,
   knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -61,6 +63,24 @@ export const backendSearchConfig = {
     q: deathsByGenderQuery,
     filterTarget: 'record',
     resultMapper: mapPieChart
+  },
+  deathsByNumberOfChildren: {
+    perspectiveID: 'casualties',
+    q: deathsByNumberOfChildrenQuery,
+    filterTarget: 'record',
+    resultMapper: mapLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
+  },
+  deathsByAge: {
+    perspectiveID: 'casualties',
+    q: deathsByAgeQuery,
+    filterTarget: 'record',
+    resultMapper: mapLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
   },
   jenaText: {
     perspectiveID: 'casualties',

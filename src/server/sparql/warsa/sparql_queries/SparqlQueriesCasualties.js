@@ -41,6 +41,7 @@ export const casualtyPropertiesFacetResults =
       {
         ?id bioc:has_occupation ?occupation__id .
         ?occupation__id skos:prefLabel ?occupation__prefLabel .
+        FILTER (LANG(?occupation__prefLabel) = 'fi')
       }
       UNION
       {
@@ -156,4 +157,31 @@ export const deathsByGenderQuery = `
   }
   GROUP BY ?category ?prefLabel
   ORDER BY ASC(?prefLabel)
+`
+
+export const deathsByNumberOfChildrenQuery = `
+  SELECT ?category
+  (COUNT(DISTINCT ?record) as ?count)
+  WHERE {
+    <FILTER>
+    ?record warsa:number_of_children ?category .
+    # BIND(xsd:integer(ROUND(?decimal_value)) as ?category)
+  }
+  GROUP BY ?category
+  ORDER BY ?category
+`
+
+export const deathsByAgeQuery = `
+  SELECT ?category
+  (COUNT(DISTINCT ?record) as ?count)
+  WHERE {
+    <FILTER>
+    ?record warsa:date_of_birth ?birthDate .
+    ?record warsa:date_of_death ?deathDate .
+    BIND(xsd:integer(FLOOR(DAY(?deathDate - ?birthDate) / 365)) as ?category)
+    FILTER(BOUND(?category))
+    FILTER(?category < 120)
+  }
+  GROUP BY ?category
+  ORDER BY ?category
 `
