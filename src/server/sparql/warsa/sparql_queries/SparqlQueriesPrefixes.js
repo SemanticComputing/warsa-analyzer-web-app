@@ -20,7 +20,7 @@ export const prefixes = `
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   PREFIX h-schema: <http://ldf.fi/schema/hellerau/>
   PREFIX gn: <http://www.geonames.org/ontology#>
-  PREFIX : <http://ldf.fi/schema/warsa/>
+  PREFIX warsa: <http://ldf.fi/schema/warsa/>
   PREFIX casualties: <http://ldf.fi/schema/warsa/casualties/>
   PREFIX bioc: <http://ldf.fi/schema/bioc/>
   PREFIX ammo: <http://ldf.fi/schema/ammo/>

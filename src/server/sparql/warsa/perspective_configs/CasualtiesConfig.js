@@ -10,7 +10,7 @@ export const casualtiesConfig = {
     prefixes,
     useAuth: false
   },
-  facetClass: ':DeathRecord',
+  facetClass: 'warsa:DeathRecord',
   includeInSitemap: true,
   // defaultConstraint: `
   //   <SUBJECT> dct:source mmm-schema:Bibale .
@@ -64,8 +64,6 @@ export const casualtiesConfig = {
       facetValueFilter: '',
       labelPath: 'casualties:municipality_of_domicile/casualties:preferred_municipality/skos:prefLabel',
       predicate: 'casualties:municipality_of_domicile/casualties:preferred_municipality',
-      facetValueFilter: `
-      `,
       facetLabelFilter: `
         FILTER(LANG(?prefLabel_) = 'fi')
       `,
@@ -86,5 +84,49 @@ export const casualtiesConfig = {
       parentPredicate: 'casualties:rank/dct:isPartOf+',
       type: 'hierarchical'
     },
+    perishing_category: {
+      id: 'perishing_category',
+      facetValueFilter: '',
+      labelPath: 'casualties:perishing_category/skos:prefLabel',
+      predicate: 'casualties:perishing_category',
+      type: 'list',
+      facetLabelFilter: `
+      FILTER(LANG(?prefLabel_) = 'fi')
+    `
+    },
+    gender: {
+      id: 'gender',
+      facetValueFilter: '',
+      labelPath: 'warsa:gender/skos:prefLabel',
+      predicate: 'warsa:gender',
+      type: 'list'
+    },
+    mother_tongue: {
+      id: 'mother_tongue',
+      facetValueFilter: '',
+      labelPath: 'warsa:mother_tongue/skos:prefLabel',
+      predicate: 'warsa:mother_tongue',
+      type: 'list',
+      facetLabelFilter: `
+      FILTER(LANG(?prefLabel_) = 'fi')
+    `
+    },
+    unit: {
+      id: 'unit',
+      facetValueFilter: '',
+      labelPath: 'casualties:unit/skos:prefLabel',
+      predicate: 'casualties:unit',
+      type: 'list'
+    },
+    marital_status: {
+      id: 'marital_status',
+      facetValueFilter: '',
+      labelPath: 'warsa:marital_status/skos:prefLabel',
+      predicate: 'warsa:marital_status',
+      type: 'list',
+      facetLabelFilter: `
+      FILTER(LANG(?prefLabel_) = 'fi')
+    `
+    }
   }
 }

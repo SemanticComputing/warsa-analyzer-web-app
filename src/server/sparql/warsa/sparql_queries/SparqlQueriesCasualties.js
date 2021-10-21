@@ -34,7 +34,7 @@ export const casualtyPropertiesFacetResults =
       }
       UNION
       {
-        ?id :date_of_death ?date_of_death__id .
+        ?id warsa:date_of_death ?date_of_death__id .
         BIND (STR(?date_of_death__id) AS ?date_of_death__prefLabel) .
       }
       UNION
@@ -48,7 +48,7 @@ export const deathsByHisclassQuery = `
     SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
     WHERE {
     <FILTER>
-      ?record a :DeathRecord ;
+      ?record a warsa:DeathRecord ;
       	bioc:has_occupation ?occupation .
       ?occupation ammo:hisclass5 ?class .
       ?class skos:altLabel ?hisclass .
@@ -70,8 +70,8 @@ export const deathsByMonthQuery = `
     SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
     WHERE {
     <FILTER>
-    ?record a :DeathRecord .
-    ?record :date_of_death ?date_of_death .
+    ?record a warsa:DeathRecord .
+    ?record warsa:date_of_death ?date_of_death .
     BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
     BIND(CONCAT(?category, ' ') AS ?prefLabel)
     FILTER (str(?date_of_death) > "1939-05-01")
