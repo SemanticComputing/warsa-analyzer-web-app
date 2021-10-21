@@ -180,6 +180,10 @@
     "bar": "bar chart",
     "resultClasses": {
       "hisclass5": "hisClass5",
+      "deathsByPerishingCategory": "Perishing category",
+      "deathsByGender": "Gender",
+      "deathsByMaritalStatus": "Marital status",
+      "deathsByMotherTongue": "Mother tongue",
       "deathsByMonth": "death month"
     }
   },

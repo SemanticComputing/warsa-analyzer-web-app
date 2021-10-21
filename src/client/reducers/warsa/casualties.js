@@ -103,13 +103,63 @@ export const INITIAL_STATE = {
       numberedList: false,
       minWidth: 250
     },
+    {
+      id: 'perishing_category',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250
+    },
+    {
+      id: 'mother_tongue',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250
+    },
+    {
+      id: 'unit',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250
+    },
+    {
+      id: 'gender',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250
+    },
+    {
+      id: 'marital_status',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250
+    }
   ]
 }
 
 const resultClasses = new Set([
   'casualties',
   'hisclass5',
-  'deathsByMonth'
+  'deathsByMonth',
+  'deathsByMaritalStatus',
+  'deathsByGender',
+  'deathsByPerishingCategory',
+  'deathsByMotherTongue',
+  'deahsByGender'
 ])
 
 const casualties = (state = INITIAL_STATE, action) => {

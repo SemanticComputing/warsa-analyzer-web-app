@@ -99,7 +99,10 @@ export const casualtiesConfig = {
       facetValueFilter: '',
       labelPath: 'warsa:gender/skos:prefLabel',
       predicate: 'warsa:gender',
-      type: 'list'
+      type: 'list',
+      facetLabelFilter: `
+      FILTER(LANG(?prefLabel_) = 'fi')
+    `
     },
     mother_tongue: {
       id: 'mother_tongue',

@@ -42,6 +42,31 @@ export const casualtyPropertiesFacetResults =
         ?id bioc:has_occupation ?occupation__id .
         ?occupation__id skos:prefLabel ?occupation__prefLabel .
       }
+      UNION
+      {
+        ?id warsa:gender ?gender__id .
+        ?gender__id skos:prefLabel ?gender__prefLabel .
+      }
+      UNION
+      {
+        ?id warsa:mother_tongue ?mother_tongue__id .
+        ?mother_tongue__id skos:prefLabel ?mother_tongue__prefLabel .
+      }
+      UNION
+      {
+        ?id warsa:marital_status ?marital_status__id .
+        ?marital_status__id skos:prefLabel ?marital_status__prefLabel .
+      }
+      UNION
+      {
+        ?id casualties:perishing_category ?perishing_category__id .
+        ?perishing_category__id skos:prefLabel ?perishing_category__prefLabel .
+      }
+      UNION
+      {
+        ?id casualties:unit ?unit__id .
+        ?unit__id skos:prefLabel ?unit__prefLabel .
+      }
 `
 
 export const deathsByHisclassQuery = `
@@ -76,6 +101,58 @@ export const deathsByMonthQuery = `
     BIND(CONCAT(?category, ' ') AS ?prefLabel)
     FILTER (str(?date_of_death) > "1939-05-01")
     FILTER (str(?date_of_death) < "1945-05-01")
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY ASC(?prefLabel)
+`
+
+export const deathsByPerishingCategoryQuery = `
+    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+    WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record casualties:perishing_category ?category .
+    ?category skos:prefLabel ?prefLabel .
+    FILTER (LANG(?prefLabel) = 'fi')
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY ASC(?prefLabel)
+`
+
+export const deathsByMotherTongueQuery = `
+    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+    WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record warsa:mother_tongue ?category .
+    ?category skos:prefLabel ?prefLabel .
+    FILTER (LANG(?prefLabel) = 'fi')
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY ASC(?prefLabel)
+`
+
+export const deathsByMaritalStatusQuery = `
+    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+    WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record warsa:marital_status ?category .
+    ?category skos:prefLabel ?prefLabel .
+    FILTER (LANG(?prefLabel) = 'fi')
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY ASC(?prefLabel)
+`
+
+export const deathsByGenderQuery = `
+    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+    WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record warsa:gender ?category .
+    ?category skos:prefLabel ?prefLabel .
+    FILTER (LANG(?prefLabel) = 'fi')
   }
   GROUP BY ?category ?prefLabel
   ORDER BY ASC(?prefLabel)

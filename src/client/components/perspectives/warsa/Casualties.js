@@ -73,11 +73,11 @@ const Casualties = props => {
               { id: 'bar', createChartData: createApexBarChartData }
             ]}
             yaxisTitle='Number of casualties'
-            resultClass='hisclass5'
+            resultClass='deathsByPerishingCategory'
             facetClass='casualties'
             dropdownForResultClasses
             facetResultsType={intl.get(`perspectives.${perspective.id}.facetResultsType`)}
-            resultClasses={['hisclass5', 'deathsByMonth']}
+            resultClasses={['deathsByPerishingCategory', 'deathsByMaritalStatus', 'deathsByGender', 'deathsByMotherTongue', 'hisclass5', 'deathsByMonth']}
             layoutConfig={props.layoutConfig}
             doNotRenderOnMount
           />}

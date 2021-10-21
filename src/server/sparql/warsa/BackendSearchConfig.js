@@ -4,6 +4,10 @@ import {
   casualtyPropertiesInstancePage,
   deathsByMonthQuery,
   deathsByHisclassQuery,
+  deathsByMaritalStatusQuery,
+  deathsByPerishingCategoryQuery,
+  deathsByMotherTongueQuery,
+  deathsByGenderQuery,
   knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -23,14 +27,38 @@ import {
 export const backendSearchConfig = {
   casualties: casualtiesConfig,
   hisclass5: {
-    perspectiveID: 'casualties', // use endpoint config from finds
+    perspectiveID: 'casualties',
     q: deathsByHisclassQuery,
     filterTarget: 'record',
     resultMapper: mapPieChart
   },
   deathsByMonth: {
-    perspectiveID: 'casualties', // use endpoint config from finds
+    perspectiveID: 'casualties',
     q: deathsByMonthQuery,
+    filterTarget: 'record',
+    resultMapper: mapPieChart
+  },
+  deathsByPerishingCategory: {
+    perspectiveID: 'casualties',
+    q: deathsByPerishingCategoryQuery,
+    filterTarget: 'record',
+    resultMapper: mapPieChart
+  },
+  deathsByMaritalStatus: {
+    perspectiveID: 'casualties',
+    q: deathsByMaritalStatusQuery,
+    filterTarget: 'record',
+    resultMapper: mapPieChart
+  },
+  deathsByMotherTongue: {
+    perspectiveID: 'casualties',
+    q: deathsByMotherTongueQuery,
+    filterTarget: 'record',
+    resultMapper: mapPieChart
+  },
+  deathsByGender: {
+    perspectiveID: 'casualties',
+    q: deathsByGenderQuery,
     filterTarget: 'record',
     resultMapper: mapPieChart
   },
