@@ -34,8 +34,8 @@ export const casualtyPropertiesFacetResults =
       }
       UNION
       {
-        ?id warsa:date_of_death ?date_of_death__id .
-        BIND (STR(?date_of_death__id) AS ?date_of_death__prefLabel) .
+        ?id warsa:date_of_death ?deathTimeTimespan__id .
+        BIND (STR(?deathTimeTimespan__id) AS ?deathTimeTimespan__prefLabel) .
       }
       UNION
       {
@@ -205,4 +205,33 @@ export const deathsByMunicipalityQuery = `
   }
   GROUP BY ?id ?prefLabel ?polygon
   ORDER BY desc(?instanceCount)
+`
+
+export const deathsByOfficerRatioQuery = `
+SELECT ?id ?prefLabel ?polygon(COUNT(DISTINCT ?officerRecord)/COUNT(DISTINCT ?record) AS ?instanceCount) (COUNT(DISTINCT ?record) AS ?allRecords)
+WHERE{
+  {
+    <FILTER>
+    ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
+      a warsa:DeathRecord .  
+      ?id a <http://www.yso.fi/onto/suo/kunta> ;
+      skos:prefLabel ?prefLabel ;
+      sch:polygon ?polygon .
+  }
+  UNION {
+    <FILTER>
+    ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
+    a warsa:DeathRecord .
+    ?record <http://ldf.fi/schema/warsa/casualties/rank> ?rank .
+    ?rank dct:isPartOf* <http://ldf.fi/warsa/actors/ranks/Paeaellystoe> .
+    BIND(?record AS ?officerRecord)
+    ?id a <http://www.yso.fi/onto/suo/kunta> ;
+    skos:prefLabel ?prefLabel ;
+    sch:polygon ?polygon .
+  }
+}
+GROUP BY ?id ?prefLabel ?polygon
+HAVING(?allRecords > 10)
+ORDER BY desc(?instanceCount)
+
 `

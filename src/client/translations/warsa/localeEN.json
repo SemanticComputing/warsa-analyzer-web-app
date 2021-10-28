@@ -1,12 +1,12 @@
 {
   "languageLabel": "English",
   "html": {
-    "title": "WarSampo Analyzer Web App",
+    "title": "WarSampo Analytics",
     "description": "Tools for analyzing WarSampo casualties perspective"
   },
   "appTitle": {
     "short": "WARSA",
-    "long": "WarSampo Analyzer",
+    "long": "WarSampo Analytics",
     "subheading": "Tools for analyzing WarSampo data"
   },
   "appDescription1": "Sampo is a web service for searching and studying place names. The search results can be viewed as a table, on maps, and as statistical distributions. Historical and current background maps are provided.",
@@ -243,6 +243,10 @@
         "mother_tongue": {
           "label": "Mother tongue",
           "description": "Mother tongue."
+        },
+        "deathTimeTimespan": {
+          "label": "Death date",
+          "description": ""
         },
         "marital_status": {
           "label": "Marital status",

@@ -56,7 +56,7 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'date_of_death',
+      id: 'deathTimeTimespan',
       valueType: 'object',
       makeLink: false,
       externalLink: false,

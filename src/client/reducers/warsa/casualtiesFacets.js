@@ -49,8 +49,8 @@ export const INITIAL_STATE = {
       distinctValueCount: 0,
       values: [],
       flatValues: [],
-      sortBy: 'prefLabel',
-      sortDirection: 'asc',
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
       sortButton: true,
       spatialFilterButton: false,
       isFetching: false,
@@ -66,8 +66,8 @@ export const INITIAL_STATE = {
       distinctValueCount: 0,
       values: [],
       flatValues: [],
-      sortBy: 'prefLabel',
-      sortDirection: 'asc',
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
       sortButton: true,
       spatialFilterButton: false,
       isFetching: false,
@@ -182,6 +182,25 @@ export const INITIAL_STATE = {
       filterType: 'uriFilter',
       uriFilter: null,
       priority: 2
+    },
+    deathTimeTimespan: {
+      id: 'deathTimeTimespan',
+      // predicate: defined in backend
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: null,
+      sortDirection: null,
+      sortButton: false,
+      spatialFilterButton: false,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'three',
+      filterType: 'dateFilter',
+      min: '1939-01-01',
+      max: '1945-12-31',
+      timespanFilter: null,
+      type: 'date'
     }
   }
 }

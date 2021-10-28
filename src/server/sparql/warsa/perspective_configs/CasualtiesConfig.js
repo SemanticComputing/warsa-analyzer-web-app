@@ -119,6 +119,16 @@ export const casualtiesConfig = {
       predicate: 'casualties:unit',
       type: 'list'
     },
+    deathTimeTimespan: {
+      id: 'deathTimeTimespan',
+      facetValueFilter: '',
+      predicate: '^crm:P70i_is_documented_in/^crm:P100_was_death_of/crm:P4_has_time-span',
+      startProperty: 'crm:P82a_begin_of_the_begin',
+      endProperty: 'crm:P82b_end_of_the_end',
+      type: 'timespan',
+      sortByAscPredicate: '^crm:P70i_is_documented_in/^crm:P100_was_death_of/crm:P4_has_time-span/crm:P82a_begin_of_the_begin',
+      sortByDescPredicate: '^crm:P70i_is_documented_in/^crm:P100_was_death_of/crm:P4_has_time-span/crm:P82b_end_of_the_end'
+    },
     marital_status: {
       id: 'marital_status',
       facetValueFilter: '',

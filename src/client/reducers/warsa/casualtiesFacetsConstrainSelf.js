@@ -22,6 +22,25 @@ export const INITIAL_STATE = {
       textFilter: null,
       priority: 1
     },
+    deathTimeTimespan: {
+      id: 'deathTimeTimespan',
+      // predicate: defined in backend
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: null,
+      sortDirection: null,
+      sortButton: false,
+      spatialFilterButton: false,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'three',
+      filterType: 'dateFilter',
+      min: '1939-01-01',
+      max: '1945-12-31',
+      timespanFilter: null,
+      type: 'date'
+    }
   }
 }
 
