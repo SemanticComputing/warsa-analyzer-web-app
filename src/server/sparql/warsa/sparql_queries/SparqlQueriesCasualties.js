@@ -196,7 +196,7 @@ export const deathsByMunicipalityQuery = `
     }
     UNION {
       <FILTER>
-      ?record casualties:municipality_of_death/casualties:preferred_municipality ?id ;
+      ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
           a warsa:DeathRecord .   
       ?id a <http://www.yso.fi/onto/suo/kunta> ;
           skos:prefLabel ?prefLabel ;
