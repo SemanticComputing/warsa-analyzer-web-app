@@ -4,29 +4,29 @@ import intl from 'react-intl-universal'
 import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
-import LeafletMap from '../../facet_results/LeafletMap'
+// import LeafletMap from '../../facet_results/LeafletMap'
 import Deck from '../../facet_results/Deck'
 import ApexChart from '../../facet_results/ApexChart'
-import Network from '../../facet_results/Network'
-import Export from '../../facet_results/Export'
+// import Network from '../../facet_results/Network'
+// import Export from '../../facet_results/Export'
 import {
   MAPBOX_ACCESS_TOKEN,
   MAPBOX_STYLE
 } from '../../../configs/warsa/GeneralConfig'
 import {
-  createSingleLineChartData,
-  createMultipleLineChartData
+  createSingleLineChartData
+  // createMultipleLineChartData
 } from '../../../configs/warsa/ApexCharts/LineChartConfig'
 import { createApexPieChartData } from '../../../configs/warsa/ApexCharts/PieChartConfig'
 import { createApexBarChartData } from '../../../configs/warsa/ApexCharts/BarChartConfig'
-import { coseLayout, cytoscapeStyle, preprocess } from '../../../configs/warsa/Cytoscape.js/NetworkConfig'
-import { layerConfigs, createPopUpContentMMM } from '../../../configs/warsa/Leaflet/LeafletConfig'
+// import { coseLayout, cytoscapeStyle, preprocess } from '../../../configs/warsa/Cytoscape.js/NetworkConfig'
+// import { layerConfigs, createPopUpContentMMM } from '../../../configs/warsa/Leaflet/LeafletConfig'
 
 const Casualties = props => {
-  const { rootUrl, perspective, screenSize } = props
-  const layerControlExpanded = screenSize === 'md' ||
-    screenSize === 'lg' ||
-    screenSize === 'xl'
+  const { rootUrl, perspective /* screenSize */ } = props
+  // const layerControlExpanded = screenSize === 'md' ||
+  //   screenSize === 'lg' ||
+  //   screenSize === 'xl'
   return (
     <>
       <PerspectiveTabs
@@ -107,6 +107,28 @@ const Casualties = props => {
             resultClasses={['deathsByAge', 'deathsByNumberOfChildren']}
             doNotRenderOnMount
             screenSize={props.screenSize}
+            layoutConfig={props.layoutConfig}
+          />}
+      />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/choropleth_map`}
+        render={() =>
+          <Deck
+            center={props.perspectiveState.maps.casualtiesByMunicipality.center}
+            zoom={props.perspectiveState.maps.casualtiesByMunicipality.zoom}
+            results={props.perspectiveState.results}
+            facetUpdateID={props.facetState.facetUpdateID}
+            instanceAnalysisData={props.perspectiveState.instanceAnalysisData}
+            instanceAnalysisDataUpdateID={props.perspectiveState.instanceAnalysisDataUpdateID}
+            resultClass='deathsByMunicipality'
+            facetClass='casualties'
+            fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
+            fetching={props.perspectiveState.fetching}
+            fetchingInstanceAnalysisData={props.perspectiveState.fetchingInstanceAnalysisData}
+            layerType='polygonLayer'
+            mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
+            mapBoxStyle={MAPBOX_STYLE}
             layoutConfig={props.layoutConfig}
           />}
       />

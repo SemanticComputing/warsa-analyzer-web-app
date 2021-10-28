@@ -22,21 +22,9 @@ export const INITIAL_STATE = {
   instanceAnalysisDataUpdateID: 0,
   instanceSparqlQuery: null,
   maps: {
-    placesMsProduced: {
-      center: [22.43, 10.37],
-      zoom: 2
-    },
-    placesMsProducedHeatmap: {
-      center: [22.43, 10.37],
-      zoom: 2
-    },
-    lastKnownLocations: {
-      center: [22.43, 10.37],
-      zoom: 2
-    },
-    placesMsMigrations: {
-      center: [22.43, 10.37],
-      zoom: 2
+    casualtiesByMunicipality: {
+      center: [65.184809, 27.314050],
+      zoom: 4
     }
   },
   properties: [
@@ -161,7 +149,8 @@ const resultClasses = new Set([
   'deathsByMotherTongue',
   'deahsByGender',
   'deathsByNumberOfChildren',
-  'deathsByAge'
+  'deathsByAge',
+  'deathsByMunicipality'
 ])
 
 const casualties = (state = INITIAL_STATE, action) => {

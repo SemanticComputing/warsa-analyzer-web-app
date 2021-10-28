@@ -75,7 +75,7 @@ export const deathsByHisclassQuery = `
     WHERE {
     <FILTER>
       ?record a warsa:DeathRecord ;
-      	bioc:has_occupation ?occupation .
+        bioc:has_occupation ?occupation .
       ?occupation ammo:hisclass5 ?class .
       ?class skos:altLabel ?hisclass .
       BIND(
@@ -184,4 +184,21 @@ export const deathsByAgeQuery = `
   }
   GROUP BY ?category
   ORDER BY ?category
+`
+
+export const deathsByMunicipalityQuery = `
+  SELECT ?id ?prefLabel ?polygon (count(DISTINCT ?record) as ?instanceCount) 
+  WHERE {
+    <FILTER>
+    ?record casualties:municipality_of_death ?municipality ;
+            a warsa:DeathRecord .      
+    OPTIONAL { 
+      ?municipality casualties:wartime_municipality ?id . 
+    }    
+    ?id a <http://www.yso.fi/onto/suo/kunta> ;
+      skos:prefLabel ?prefLabel ;
+      sch:polygon ?polygon .
+  }
+  GROUP BY ?id ?prefLabel ?polygon
+  ORDER BY desc(?instanceCount)
 `

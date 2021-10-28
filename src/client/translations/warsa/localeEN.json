@@ -75,6 +75,7 @@
     "pie_chart": "pie chart",
     "line_chart": "line chart",
     "map": "map",
+    "choropleth_map": "choropleth map",
     "production_places": "production places",
     "production_places_heatmap": "production heatmap",
     "last_known_locations": "last known locations",

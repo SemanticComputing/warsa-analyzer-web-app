@@ -1,7 +1,5 @@
 import { casualtiesConfig } from './perspective_configs/CasualtiesConfig'
 import {
-  casualtyPropertiesFacetResultsQuery,
-  casualtyPropertiesInstancePage,
   deathsByMonthQuery,
   deathsByHisclassQuery,
   deathsByMaritalStatusQuery,
@@ -10,7 +8,8 @@ import {
   deathsByGenderQuery,
   deathsByNumberOfChildrenQuery,
   deathsByAgeQuery,
-  knowledgeGraphMetadataQuery
+  deathsByMunicipalityQuery
+  // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
@@ -18,11 +17,12 @@ import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText
 import { sitemapInstancePageQuery } from '../SparqlQueriesGeneral'
 import { makeObjectList } from '../SparqlObjectMapper'
 import {
-  mapPlaces,
+  // mapPlaces,
   mapLineChart,
-  mapMultipleLineChart,
-  linearScale,
-  toBarChartRaceFormat,
+  // mapMultipleLineChart,
+  // linearScale,
+  // toBarChartRaceFormat,
+  toPolygonLayerFormat,
   mapPieChart
 } from '../Mappers'
 
@@ -80,6 +80,18 @@ export const backendSearchConfig = {
     resultMapper: mapLineChart,
     resultMapperConfig: {
       fillEmptyValues: true
+    }
+  },
+  deathsByMunicipality: {
+    perspectiveID: 'casualties',
+    q: deathsByMunicipalityQuery,
+    filterTarget: 'record',
+    resultMapper: makeObjectList,
+    postprocess: {
+      func: toPolygonLayerFormat,
+      config: {
+        variable: 'death'
+      }
     }
   },
   jenaText: {

@@ -1,7 +1,7 @@
 import React from 'react'
 import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
 // import TripOriginIcon from '@material-ui/icons/TripOrigin'
-// import LocationOnIcon from '@material-ui/icons/LocationOn'
+import LocationOnIcon from '@material-ui/icons/LocationOn'
 // import AddLocationIcon from '@material-ui/icons/AddLocation'
 // import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness'
 // import StarIcon from '@material-ui/icons/Star'
@@ -33,6 +33,11 @@ export const perspectiveConfig = [
         id: 'line_chart',
         value: 2,
         icon: <LineChartIcon />
+      },
+      {
+        id: 'choropleth_map',
+        value: 3,
+        icon: <LocationOnIcon />
       }
     ],
     instancePageTabs: [

@@ -36,8 +36,6 @@ export const casualtiesConfig = {
       facetValueFilter: '',
       labelPath: 'bioc:has_occupation/skos:prefLabel',
       predicate: 'bioc:has_occupation',
-      facetValueFilter: `
-      `,
       facetLabelFilter: `
         FILTER(LANG(?prefLabel_) = 'fi')
       `,
