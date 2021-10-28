@@ -189,15 +189,19 @@ export const deathsByAgeQuery = `
 export const deathsByMunicipalityQuery = `
   SELECT ?id ?prefLabel ?polygon (count(DISTINCT ?record) as ?instanceCount) 
   WHERE {
-    <FILTER>
-    ?record casualties:municipality_of_death ?municipality ;
-            a warsa:DeathRecord .      
-    OPTIONAL { 
-      ?municipality casualties:wartime_municipality ?id . 
-    }    
-    ?id a <http://www.yso.fi/onto/suo/kunta> ;
-      skos:prefLabel ?prefLabel ;
-      sch:polygon ?polygon .
+    { 
+      ?id a <http://www.yso.fi/onto/suo/kunta> ;
+          skos:prefLabel ?prefLabel ;
+          sch:polygon ?polygon .  
+    }
+    UNION {
+      <FILTER>
+      ?record casualties:municipality_of_death/casualties:preferred_municipality ?id ;
+          a warsa:DeathRecord .   
+      ?id a <http://www.yso.fi/onto/suo/kunta> ;
+          skos:prefLabel ?prefLabel ;
+          sch:polygon ?polygon .      
+    }
   }
   GROUP BY ?id ?prefLabel ?polygon
   ORDER BY desc(?instanceCount)
