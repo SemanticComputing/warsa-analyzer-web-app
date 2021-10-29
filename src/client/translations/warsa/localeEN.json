@@ -216,11 +216,11 @@
           "label": "Occupation",
           "description": "Occupation."
         },
-        "municipality_of_domicile": {
+        "municipalityOfDomicile": {
           "label": "Municipality of domicile",
           "description": "municipality_of_domicile."
         },
-        "municipality_of_death": {
+        "municipalityOfDeath": {
           "label": "Municipality of death",
           "description": "municipality_of_death."
         },

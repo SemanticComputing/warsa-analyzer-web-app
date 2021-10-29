@@ -43,7 +43,7 @@ export const INITIAL_STATE = {
       selectAlsoSubconcepts: true,
       priority: 6
     },
-    municipality_of_death: {
+    municipalityOfDeath: {
       id: 'municipalityOfDeath',
       // predicate: defined in backend
       distinctValueCount: 0,
@@ -60,7 +60,7 @@ export const INITIAL_STATE = {
       uriFilter: null,
       priority: 2
     },
-    municipality_of_domicile: {
+    municipalityOfDomicile: {
       id: 'municipalityOfDomicile',
       // predicate: defined in backend
       distinctValueCount: 0,

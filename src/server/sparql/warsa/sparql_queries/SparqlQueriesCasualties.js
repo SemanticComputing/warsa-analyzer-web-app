@@ -100,8 +100,8 @@ export const deathsByMonthQuery = `
     ?record warsa:date_of_death ?date_of_death .
     BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
     BIND(CONCAT(?category, ' ') AS ?prefLabel)
-    FILTER (str(?date_of_death) > "1939-05-01")
-    FILTER (str(?date_of_death) < "1945-05-01")
+    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
   }
   GROUP BY ?category ?prefLabel
   ORDER BY ASC(?prefLabel)
