@@ -65,7 +65,7 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'municipality_of_domicile',
+      id: 'municipalityOfDomicile',
       valueType: 'object',
       makeLink: true,
       externalLink: true,
@@ -74,7 +74,7 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'municipality_of_death',
+      id: 'municipalityOfDeath',
       valueType: 'object',
       makeLink: true,
       externalLink: true,
@@ -92,7 +92,7 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'perishing_category',
+      id: 'perishingCategory',
       valueType: 'object',
       makeLink: true,
       externalLink: true,
@@ -101,7 +101,7 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'mother_tongue',
+      id: 'motherTongue',
       valueType: 'object',
       makeLink: true,
       externalLink: true,
@@ -128,7 +128,7 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'marital_status',
+      id: 'maritalStatus',
       valueType: 'object',
       makeLink: true,
       externalLink: true,

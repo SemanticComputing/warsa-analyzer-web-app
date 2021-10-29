@@ -44,7 +44,7 @@ export const INITIAL_STATE = {
       priority: 6
     },
     municipality_of_death: {
-      id: 'municipality_of_death',
+      id: 'municipalityOfDeath',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
@@ -61,7 +61,7 @@ export const INITIAL_STATE = {
       priority: 2
     },
     municipality_of_domicile: {
-      id: 'municipality_of_domicile',
+      id: 'municipalityOfDomicile',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
@@ -99,7 +99,7 @@ export const INITIAL_STATE = {
       priority: 6
     },
     perishing_category: {
-      id: 'perishing_category',
+      id: 'perishingCategory',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
@@ -133,7 +133,7 @@ export const INITIAL_STATE = {
       priority: 2
     },
     marital_status: {
-      id: 'marital_status',
+      id: 'maritalStatus',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
@@ -150,7 +150,7 @@ export const INITIAL_STATE = {
       priority: 2
     },
     mother_tongue: {
-      id: 'mother_tongue',
+      id: 'motherTongue',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],

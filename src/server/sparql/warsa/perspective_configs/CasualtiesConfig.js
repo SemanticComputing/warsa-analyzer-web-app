@@ -43,12 +43,17 @@ export const casualtiesConfig = {
       parentPredicate: 'bioc:has_occupation/ammo:hisclass5',
       type: 'hierarchical'
     },
-    municipality_of_death: {
-      id: 'municipality_of_death',
+    municipalityOfDeath: {
+      id: 'municipalityOfDeath',
       facetValueFilter: '',
-      labelPath: 'casualties:municipality_of_death/skos:prefLabel',
-      predicate: 'casualties:municipality_of_death',
-      type: 'list'
+      labelPath: 'casualties:municipality_of_death/casualties:preferred_municipality/skos:prefLabel',
+      predicate: 'casualties:municipality_of_death/casualties:preferred_municipality',
+      facetLabelFilter: `
+      FILTER(LANG(?prefLabel_) = 'fi')
+      `,
+      parentProperty: 'geos:sfWithin',
+      parentPredicate: 'casualties:municipality_of_death/casualties:preferred_municipality/geos:sfWithin+',
+      type: 'hierarchical'
     },
     // municipality_of_domicile: {
     //   id: 'municipality_of_domicile',
@@ -57,8 +62,8 @@ export const casualtiesConfig = {
     //   predicate: 'casualties:municipality_of_domicile',
     //   type: 'list'
     // },
-    municipality_of_domicile: {
-      id: 'municipality_of_domicile',
+    municipalityOfDomicile: {
+      id: 'municipalityOfDomicile',
       facetValueFilter: '',
       labelPath: 'casualties:municipality_of_domicile/casualties:preferred_municipality/skos:prefLabel',
       predicate: 'casualties:municipality_of_domicile/casualties:preferred_municipality',
@@ -82,8 +87,8 @@ export const casualtiesConfig = {
       parentPredicate: 'casualties:rank/dct:isPartOf+',
       type: 'hierarchical'
     },
-    perishing_category: {
-      id: 'perishing_category',
+    perishingCategory: {
+      id: 'perishingCategory',
       facetValueFilter: '',
       labelPath: 'casualties:perishing_category/skos:prefLabel',
       predicate: 'casualties:perishing_category',
@@ -102,8 +107,8 @@ export const casualtiesConfig = {
       FILTER(LANG(?prefLabel_) = 'fi')
     `
     },
-    mother_tongue: {
-      id: 'mother_tongue',
+    motherTongue: {
+      id: 'motherTongue',
       facetValueFilter: '',
       labelPath: 'warsa:mother_tongue/skos:prefLabel',
       predicate: 'warsa:mother_tongue',
@@ -129,8 +134,8 @@ export const casualtiesConfig = {
       sortByAscPredicate: '^crm:P70i_is_documented_in/^crm:P100_was_death_of/crm:P4_has_time-span/crm:P82a_begin_of_the_begin',
       sortByDescPredicate: '^crm:P70i_is_documented_in/^crm:P100_was_death_of/crm:P4_has_time-span/crm:P82b_end_of_the_end'
     },
-    marital_status: {
-      id: 'marital_status',
+    maritalStatus: {
+      id: 'maritalStatus',
       facetValueFilter: '',
       labelPath: 'warsa:marital_status/skos:prefLabel',
       predicate: 'warsa:marital_status',

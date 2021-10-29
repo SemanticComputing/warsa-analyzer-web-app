@@ -19,13 +19,13 @@ export const casualtyPropertiesFacetResults =
       BIND(?id as ?uri__dataProviderUrl)
       BIND(?id as ?uri__prefLabel)
       {
-        ?id casualties:municipality_of_domicile ?municipality_of_domicile__id .
-        ?municipality_of_domicile__id skos:prefLabel ?municipality_of_domicile__prefLabel .
+        ?id casualties:municipality_of_domicile ?municipalityOfDomicile__id .
+        ?municipalityOfDomicile__id skos:prefLabel ?municipalityOfDomicile__prefLabel .
       }
       UNION
       {
-        ?id casualties:municipality_of_death ?municipality_of_death__id .
-        ?municipality_of_death__id skos:prefLabel ?municipality_of_death__prefLabel .
+        ?id casualties:municipality_of_death ?municipalityOfDeath__id .
+        ?municipalityOfDeath__id skos:prefLabel ?municipalityOfDeath__prefLabel .
       }
       UNION
       {
@@ -50,18 +50,18 @@ export const casualtyPropertiesFacetResults =
       }
       UNION
       {
-        ?id warsa:mother_tongue ?mother_tongue__id .
-        ?mother_tongue__id skos:prefLabel ?mother_tongue__prefLabel .
+        ?id warsa:mother_tongue ?motherTongue__id .
+        ?motherTongue__id skos:prefLabel ?motherTongue__prefLabel .
       }
       UNION
       {
-        ?id warsa:marital_status ?marital_status__id .
-        ?marital_status__id skos:prefLabel ?marital_status__prefLabel .
+        ?id warsa:marital_status ?maritalStatus__id .
+        ?maritalStatus__id skos:prefLabel ?maritalStatus__prefLabel .
       }
       UNION
       {
-        ?id casualties:perishing_category ?perishing_category__id .
-        ?perishing_category__id skos:prefLabel ?perishing_category__prefLabel .
+        ?id casualties:perishing_category ?perishingCategory__id .
+        ?perishingCategory__id skos:prefLabel ?perishingCategory__prefLabel .
       }
       UNION
       {
