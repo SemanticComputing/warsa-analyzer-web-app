@@ -8,7 +8,8 @@ import {
   deathsByGenderQuery,
   deathsByNumberOfChildrenQuery,
   deathsByAgeQuery,
-  deathsByMunicipalityQuery
+  deathsByMunicipalityQuery,
+  deathsByProvinceOfDomicileQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -37,6 +38,12 @@ export const backendSearchConfig = {
   deathsByMonth: {
     perspectiveID: 'casualties',
     q: deathsByMonthQuery,
+    filterTarget: 'record',
+    resultMapper: mapPieChart
+  },
+  deathsByProvinceOfDomicile: {
+    perspectiveID: 'casualties',
+    q: deathsByProvinceOfDomicileQuery,
     filterTarget: 'record',
     resultMapper: mapPieChart
   },

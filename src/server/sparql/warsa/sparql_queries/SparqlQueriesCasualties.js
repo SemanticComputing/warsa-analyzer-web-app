@@ -233,5 +233,18 @@ WHERE{
 GROUP BY ?id ?prefLabel ?polygon
 HAVING(?allRecords > 10)
 ORDER BY desc(?instanceCount)
+`
 
+export const deathsByProvinceOfDomicileQuery = `
+  SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+  WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?category .
+    ?category skos:prefLabel ?prefLabel .
+    ?category a <http://www.yso.fi/onto/suo/laani> .
+    FILTER (LANG(?prefLabel) = 'fi')
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY DESC(?instanceCount)
 `

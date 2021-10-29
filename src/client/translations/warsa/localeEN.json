@@ -188,7 +188,8 @@
       "deathsByMotherTongue": "Mother tongue",
       "deathsByMonth": "death month",
       "deathsByAge": "Age",
-      "deathsByNumberOfChildren": "Number of children"
+      "deathsByNumberOfChildren": "Number of children",
+      "deathsByProvinceOfDomicile": "Province of domicile"
     },
     "numberOfCasualties": "Number of casualties"
   },

@@ -101,6 +101,7 @@ export const getAllResults = ({
   let defaultConstraint = null
   let langTag = null
   let langTagSecondary = null
+  console.log(resultClass)
   if (has(config, 'perspectiveID')) {
     ({ endpoint, defaultConstraint, langTag, langTagSecondary } = backendSearchConfig[config.perspectiveID])
   } else {
