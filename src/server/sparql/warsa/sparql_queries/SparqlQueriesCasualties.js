@@ -186,6 +186,20 @@ export const deathsByAgeQuery = `
   ORDER BY ?category
 `
 
+export const deathsByLineMonthQuery = `
+    SELECT ?category (COUNT(DISTINCT ?record) AS ?count)
+    WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record warsa:date_of_death ?date_of_death .
+    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  }
+  GROUP BY ?category
+  ORDER BY ASC(?category)
+  `
+
 export const deathsByMunicipalityQuery = `
   SELECT ?id ?prefLabel ?polygon (count(DISTINCT ?record) as ?instanceCount) 
   WHERE {

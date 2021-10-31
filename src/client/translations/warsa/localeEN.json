@@ -187,6 +187,7 @@
       "deathsByMaritalStatus": "Marital status",
       "deathsByMotherTongue": "Mother tongue",
       "deathsByMonth": "death month",
+      "deathsByLineMonth": "death month",
       "deathsByAge": "Age",
       "deathsByNumberOfChildren": "Number of children",
       "deathsByProvinceOfDomicile": "Province of domicile"

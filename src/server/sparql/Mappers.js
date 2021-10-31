@@ -116,6 +116,64 @@ export const mapLineChart = ({ sparqlBindings, config }) => {
   }
 }
 
+export const mapMonthLineChart = ({ sparqlBindings, config }) => {
+  const seriesData = []
+  const categoriesData = []
+  const sparqlBindingsLength = sparqlBindings.length
+  sparqlBindings.forEach((b, index, bindings) => {
+    const splitCurrentCategory = b.category.value.split('-')
+    const currentYear = parseInt(splitCurrentCategory[0])
+    const currentMonth = parseInt(splitCurrentCategory[1])
+    const currentCategory = currentYear + '-' + currentMonth
+    const currentValue = parseInt(b.count.value)
+    seriesData.push(currentValue)
+    categoriesData.push(
+      config && config.xAxisConverter
+        ? config.xAxisConverter(currentCategory)
+        : currentCategory
+    )
+    if (config && config.fillEmptyValues && index + 1 < sparqlBindingsLength) {
+      let categoryIter = currentCategory
+      const splitNextCategory = bindings[index + 1].category.value.split('-')
+      let targetYear = 0
+      let targetMonth = 0
+      let iterYear = currentYear
+      let iterMonth = currentMonth
+      if (parseInt(splitNextCategory[1]) === 1) {
+        targetYear = parseInt(splitNextCategory[0]) - 1
+        targetMonth = 12
+      } else {
+        targetYear = parseInt(splitNextCategory[0])
+        targetMonth = parseInt(splitNextCategory[1]) - 1
+      }
+      const target = targetYear + '-' + targetMonth
+      // add zeros until we reach the next category with a non zero value
+      while (categoryIter !== target) {
+        const splitIter = categoryIter.split('-')
+        iterYear = parseInt(splitIter[0])
+        iterMonth = parseInt(splitIter[1])
+        if (iterMonth === 12) {
+          iterMonth = 1
+          iterYear = iterYear + 1
+        } else {
+          iterMonth = iterMonth + 1
+        }
+        categoryIter = iterYear + '-' + iterMonth
+        seriesData.push(0)
+        categoriesData.push(
+          config && config.xAxisConverter
+            ? config.xAxisConverter(categoryIter)
+            : categoryIter
+        )
+      }
+    }
+  })
+  return {
+    seriesData,
+    categoriesData
+  }
+}
+
 export const mapMultipleLineChart = ({ sparqlBindings, config }) => {
   const res = {}
   sparqlBindings.forEach(b => {

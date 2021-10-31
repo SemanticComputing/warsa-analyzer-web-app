@@ -100,11 +100,11 @@ const Casualties = props => {
             yaxisTitle={intl.get('apexCharts.numberOfCasualties')}
             seriesTitle={intl.get('apexCharts.numberOfCasualties')}
             stroke={{ width: 2 }}
-            resultClass='deathsByNumberOfChildren'
+            resultClass='deathsByLineMonth'
             facetClass='casualties'
             dropdownForResultClasses
             perspectiveStateType={intl.get(`perspectives.${perspective.id}.perspectiveStateType`)}
-            resultClasses={['deathsByAge', 'deathsByNumberOfChildren']}
+            resultClasses={['deathsByLineMonth', 'deathsByAge', 'deathsByNumberOfChildren']}
             doNotRenderOnMount
             screenSize={props.screenSize}
             layoutConfig={props.layoutConfig}

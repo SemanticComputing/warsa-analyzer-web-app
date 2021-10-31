@@ -9,7 +9,8 @@ import {
   deathsByNumberOfChildrenQuery,
   deathsByAgeQuery,
   deathsByMunicipalityQuery,
-  deathsByProvinceOfDomicileQuery
+  deathsByProvinceOfDomicileQuery,
+  deathsByLineMonthQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -24,7 +25,8 @@ import {
   // linearScale,
   // toBarChartRaceFormat,
   toPolygonLayerFormat,
-  mapPieChart
+  mapPieChart,
+  mapMonthLineChart
 } from '../Mappers'
 
 export const backendSearchConfig = {
@@ -76,6 +78,15 @@ export const backendSearchConfig = {
     q: deathsByNumberOfChildrenQuery,
     filterTarget: 'record',
     resultMapper: mapLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
+  },
+  deathsByLineMonth: {
+    perspectiveID: 'casualties',
+    q: deathsByLineMonthQuery,
+    filterTarget: 'record',
+    resultMapper: mapMonthLineChart,
     resultMapperConfig: {
       fillEmptyValues: true
     }
