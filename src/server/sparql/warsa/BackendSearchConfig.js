@@ -11,7 +11,9 @@ import {
   deathsByMunicipalityQuery,
   deathsByProvinceOfDomicileQuery,
   deathsByLineMonthQuery,
-  deathsByProvinceOfDomicileRatioQuery
+  deathsByProvinceOfDomicileRatioQuery,
+  deathsByOfficerRatioQuery,
+  deathsByRatioToAllQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -92,9 +94,27 @@ export const backendSearchConfig = {
       fillEmptyValues: true
     }
   },
+  deathsByOfficerRatio: {
+    perspectiveID: 'casualties',
+    q: deathsByOfficerRatioQuery,
+    filterTarget: 'record',
+    resultMapper: mapMonthLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
+  },
   deathsByProvinceOfDomicileRatio: {
     perspectiveID: 'casualties',
     q: deathsByProvinceOfDomicileRatioQuery,
+    filterTarget: 'record',
+    resultMapper: mapMonthLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
+  },
+  deathsByRatioToAll: {
+    perspectiveID: 'casualties',
+    q: deathsByRatioToAllQuery,
     filterTarget: 'record',
     resultMapper: mapMonthLineChart,
     resultMapperConfig: {

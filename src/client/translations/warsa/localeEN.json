@@ -191,7 +191,9 @@
       "deathsByAge": "Age",
       "deathsByNumberOfChildren": "Number of children",
       "deathsByProvinceOfDomicile": "Province of domicile",
-      "deathsByProvinceOfDomicileRatio": "Percentage of deaths from a province (defined in query)"
+      "deathsByProvinceOfDomicileRatio": "Percentage of deaths from a province (defined in query)",
+      "deathsByRatioToAll": "Percentage of the filtered group from all death records",
+      "deathsByOfficerRatio": "Percentage of officers of the filtered group"
     },
     "numberOfCasualties": "Number of casualties"
   },

@@ -222,31 +222,55 @@ export const deathsByMunicipalityQuery = `
 `
 
 export const deathsByOfficerRatioQuery = `
-SELECT ?id ?prefLabel ?polygon(COUNT(DISTINCT ?officerRecord)/COUNT(DISTINCT ?record) AS ?instanceCount) (COUNT(DISTINCT ?record) AS ?allRecords)
+SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record)*100 AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
 WHERE{
   {
     <FILTER>
-    ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
-      a warsa:DeathRecord .  
-      ?id a <http://www.yso.fi/onto/suo/kunta> ;
-      skos:prefLabel ?prefLabel ;
-      sch:polygon ?polygon .
+    ?record a warsa:DeathRecord .  
+      ?record warsa:date_of_death ?date_of_death .
+      BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+      FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+      FILTER (?date_of_death < "1945-05-01"^^xsd:date)
   }
   UNION {
     <FILTER>
-    ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
-    a warsa:DeathRecord .
+    ?record a warsa:DeathRecord .
+    BIND(?record AS ?filteredRecord)
     ?record <http://ldf.fi/schema/warsa/casualties/rank> ?rank .
     ?rank dct:isPartOf* <http://ldf.fi/warsa/actors/ranks/Paeaellystoe> .
-    BIND(?record AS ?officerRecord)
-    ?id a <http://www.yso.fi/onto/suo/kunta> ;
-    skos:prefLabel ?prefLabel ;
-    sch:polygon ?polygon .
+    ?record warsa:date_of_death ?date_of_death .
+    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
   }
 }
-GROUP BY ?id ?prefLabel ?polygon
-HAVING(?allRecords > 10)
-ORDER BY desc(?instanceCount)
+GROUP BY ?category
+ORDER BY asc(?category)
+`
+
+// Compare filtered group to all
+export const deathsByRatioToAllQuery = `
+SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record)*100 AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
+WHERE{
+  {
+    ?record a warsa:DeathRecord .  
+      ?record warsa:date_of_death ?date_of_death .
+      BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+      FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+      FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  }
+  UNION {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    BIND(?record AS ?filteredRecord)
+    ?record warsa:date_of_death ?date_of_death .
+    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  }
+}
+GROUP BY ?category
+ORDER BY asc(?category)
 `
 
 export const deathsByProvinceOfDomicileQuery = `
@@ -271,7 +295,7 @@ WHERE {
     ?record a warsa:DeathRecord .
     ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?province .
     ?province skos:prefLabel ?prefLabel .
-    ?province a <http://www.yso.fi/onto/suo/laani> . # This limits counting to places with hierarchy with lääni. The numbers won't be axactly accccurate.
+    ?province a <http://www.yso.fi/onto/suo/laani> . # This limits counting to places with hierarchy with lääni. The numbers won't be exactly accccurate.
     FILTER (LANG(?prefLabel) = 'fi')
     ?record warsa:date_of_death ?date_of_death .
     BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
@@ -294,5 +318,7 @@ WHERE {
   }
 }
 GROUP BY ?category
+HAVING (?allRecords > 10)
 ORDER BY ASC(?category)
+
 `
