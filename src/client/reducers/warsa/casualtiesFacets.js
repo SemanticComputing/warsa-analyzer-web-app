@@ -98,7 +98,7 @@ export const INITIAL_STATE = {
       selectAlsoSubconcepts: true,
       priority: 6
     },
-    perishing_category: {
+    perishingCategory: {
       id: 'perishingCategory',
       // predicate: defined in backend
       distinctValueCount: 0,
@@ -132,7 +132,7 @@ export const INITIAL_STATE = {
       uriFilter: null,
       priority: 2
     },
-    marital_status: {
+    maritalStatus: {
       id: 'maritalStatus',
       // predicate: defined in backend
       distinctValueCount: 0,
@@ -149,7 +149,7 @@ export const INITIAL_STATE = {
       uriFilter: null,
       priority: 2
     },
-    mother_tongue: {
+    motherTongue: {
       id: 'motherTongue',
       // predicate: defined in backend
       distinctValueCount: 0,

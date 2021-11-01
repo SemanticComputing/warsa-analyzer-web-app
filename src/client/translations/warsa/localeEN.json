@@ -234,7 +234,7 @@
           "label": "Rank",
           "description": "Rank."
         },
-        "date_of_death": {
+        "dateOfDeath": {
           "label": "Date of death",
           "description": "Date of death."
         },
@@ -246,7 +246,7 @@
           "label": "Gender",
           "description": "Gender."
         },
-        "mother_tongue": {
+        "motherTongue": {
           "label": "Mother tongue",
           "description": "Mother tongue."
         },
@@ -254,11 +254,11 @@
           "label": "Death date",
           "description": ""
         },
-        "marital_status": {
+        "maritalStatus": {
           "label": "Marital status",
           "description": ""
         },
-        "perishing_category": {
+        "perishingCategory": {
           "label": "Perishing category",
           "description": ""
         }
