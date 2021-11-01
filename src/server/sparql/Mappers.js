@@ -125,7 +125,7 @@ export const mapMonthLineChart = ({ sparqlBindings, config }) => {
     const currentYear = parseInt(splitCurrentCategory[0])
     const currentMonth = parseInt(splitCurrentCategory[1])
     const currentCategory = currentYear + '-' + currentMonth
-    const currentValue = parseInt(b.count.value)
+    const currentValue = b.count.value
     seriesData.push(currentValue)
     categoriesData.push(
       config && config.xAxisConverter

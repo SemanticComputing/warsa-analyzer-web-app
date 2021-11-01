@@ -155,7 +155,8 @@ const resultClasses = new Set([
   'deathsByLineMonth',
   'deathsByProvinceOfDomicileRatio',
   'deathsByOfficerRatio',
-  'deathsByRatioToAll'
+  'deathsByRatioToAll',
+  'deathsByRatioFromOfficers'
 ])
 
 const casualties = (state = INITIAL_STATE, action) => {

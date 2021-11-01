@@ -222,7 +222,7 @@ export const deathsByMunicipalityQuery = `
 `
 
 export const deathsByOfficerRatioQuery = `
-SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record)*100 AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
+SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
 WHERE{
   {
     <FILTER>
@@ -237,7 +237,7 @@ WHERE{
     ?record a warsa:DeathRecord .
     BIND(?record AS ?filteredRecord)
     ?record <http://ldf.fi/schema/warsa/casualties/rank> ?rank .
-    ?rank dct:isPartOf* <http://ldf.fi/warsa/actors/ranks/Paeaellystoe> .
+    ?rank dct:isPartOf* <http://ldf.fi/warsa/actors/ranks/Upseeri> .
     ?record warsa:date_of_death ?date_of_death .
     BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
     FILTER (?date_of_death > "1939-05-01"^^xsd:date)
@@ -248,9 +248,37 @@ GROUP BY ?category
 ORDER BY asc(?category)
 `
 
+export const deathsByRatioFromOfficersQuery = `
+SELECT ?category (COUNT(DISTINCT ?record)/COUNT(DISTINCT ?filteredRecord) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
+WHERE{
+  {
+    <FILTER>
+    ?record a warsa:DeathRecord . 
+    ?record <http://ldf.fi/schema/warsa/casualties/rank> ?rank .
+    ?rank dct:isPartOf* <http://ldf.fi/warsa/actors/ranks/Upseeri> .
+      ?record warsa:date_of_death ?date_of_death .
+      BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+      FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+      FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  }
+  UNION {
+    ?filteredRecord a warsa:DeathRecord .
+    ?filteredRecord <http://ldf.fi/schema/warsa/casualties/rank> ?rank .
+    ?rank dct:isPartOf* <http://ldf.fi/warsa/actors/ranks/Upseeri> .
+    ?filteredRecord warsa:date_of_death ?date_of_death .
+    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  }
+}
+GROUP BY ?category
+HAVING (?count > 0)
+ORDER BY asc(?category)
+`
+
 // Compare filtered group to all
 export const deathsByRatioToAllQuery = `
-SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record)*100 AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
+SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
 WHERE{
   {
     ?record a warsa:DeathRecord .  
@@ -288,7 +316,7 @@ export const deathsByProvinceOfDomicileQuery = `
 `
 
 export const deathsByProvinceOfDomicileRatioQuery = `
-SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record)*100 AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
+SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
 WHERE {
   {
     <FILTER>
