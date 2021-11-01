@@ -190,7 +190,8 @@
       "deathsByLineMonth": "death month",
       "deathsByAge": "Age",
       "deathsByNumberOfChildren": "Number of children",
-      "deathsByProvinceOfDomicile": "Province of domicile"
+      "deathsByProvinceOfDomicile": "Province of domicile",
+      "deathsByProvinceOfDomicileRatio": "Percentage of deaths from a province (defined in query)"
     },
     "numberOfCasualties": "Number of casualties"
   },

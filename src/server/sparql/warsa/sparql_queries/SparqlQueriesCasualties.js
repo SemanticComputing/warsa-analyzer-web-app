@@ -262,3 +262,37 @@ export const deathsByProvinceOfDomicileQuery = `
   GROUP BY ?category ?prefLabel
   ORDER BY DESC(?instanceCount)
 `
+
+export const deathsByProvinceOfDomicileRatioQuery = `
+SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record)*100 AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
+WHERE {
+  {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?province .
+    ?province skos:prefLabel ?prefLabel .
+    ?province a <http://www.yso.fi/onto/suo/laani> . # This limits counting to places with hierarchy with lääni. The numbers won't be axactly accccurate.
+    FILTER (LANG(?prefLabel) = 'fi')
+    ?record warsa:date_of_death ?date_of_death .
+    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  }
+  UNION
+  {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    BIND(?record AS ?filteredRecord)
+    ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?province .
+    ?province skos:prefLabel ?prefLabel .
+    ?province a <http://www.yso.fi/onto/suo/laani> .
+    FILTER (?prefLabel = "Viipurin lääni"@fi)  # This needs to be changed manually from the query
+    ?filteredRecord warsa:date_of_death ?date_of_death .
+    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  }
+}
+GROUP BY ?category
+ORDER BY ASC(?category)
+`

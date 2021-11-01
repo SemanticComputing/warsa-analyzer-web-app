@@ -104,7 +104,7 @@ const Casualties = props => {
             facetClass='casualties'
             dropdownForResultClasses
             perspectiveStateType={intl.get(`perspectives.${perspective.id}.perspectiveStateType`)}
-            resultClasses={['deathsByLineMonth', 'deathsByAge', 'deathsByNumberOfChildren']}
+            resultClasses={['deathsByLineMonth', 'deathsByAge', 'deathsByNumberOfChildren', 'deathsByProvinceOfDomicileRatio']}
             doNotRenderOnMount
             screenSize={props.screenSize}
             layoutConfig={props.layoutConfig}
