@@ -120,6 +120,21 @@ export const deathsByPerishingCategoryQuery = `
   ORDER BY ASC(?prefLabel)
 `
 
+export const deathsByRankQuery = `
+  SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+  WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?category a warsa:Rank .
+    FILTER (?category = <http://ldf.fi/warsa/actors/ranks/Upseeri> || ?category = <http://ldf.fi/warsa/actors/ranks/Aliupseeri> || ?category = <http://ldf.fi/warsa/actors/ranks/Miehistoe>)
+    ?record casualties:rank/dct:isPartOf+ ?category .
+    ?category skos:prefLabel ?prefLabel .
+    FILTER (LANG(?prefLabel) = 'fi')
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY ASC(?prefLabel)
+`
+
 export const deathsByMotherTongueQuery = `
     SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
     WHERE {
@@ -312,7 +327,7 @@ export const deathsByProvinceOfDomicileQuery = `
     FILTER (LANG(?prefLabel) = 'fi')
   }
   GROUP BY ?category ?prefLabel
-  ORDER BY DESC(?instanceCount)
+  ORDER BY DESC(?prefLabel)
 `
 
 export const deathsByProvinceOfDomicileRatioQuery = `
@@ -349,4 +364,22 @@ GROUP BY ?category
 HAVING (?allRecords > 10)
 ORDER BY ASC(?category)
 
+`
+
+export const ageAverageQuery = `
+SELECT DISTINCT ?category (AVG(?age) AS ?count)
+WHERE {
+  <FILTER>
+  ?record a warsa:DeathRecord .
+  ?record warsa:date_of_death ?deathDate .
+  BIND(SUBSTR(str(?deathDate),1,7) AS ?category)
+  FILTER (?deathDate > "1939-05-01"^^xsd:date)
+  FILTER (?deathDate < "1945-05-01"^^xsd:date)
+  ?record warsa:date_of_birth ?birthDate .
+  BIND(xsd:integer(FLOOR(DAY(?deathDate - ?birthDate) / 365)) as ?age)
+  FILTER(BOUND(?age))
+  FILTER(?age < 120)
+}
+GROUP BY ?category
+ORDER BY ASC(?category)
 `

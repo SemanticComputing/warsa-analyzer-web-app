@@ -77,7 +77,7 @@ const Casualties = props => {
             facetClass='casualties'
             dropdownForResultClasses
             facetResultsType={intl.get(`perspectives.${perspective.id}.facetResultsType`)}
-            resultClasses={['deathsByPerishingCategory', 'deathsByMaritalStatus', 'deathsByGender', 'deathsByMotherTongue', 'hisclass5', 'deathsByMonth', 'deathsByProvinceOfDomicile']}
+            resultClasses={['deathsByPerishingCategory', 'deathsByMaritalStatus', 'deathsByGender', 'deathsByMotherTongue', 'hisclass5', 'deathsByMonth', 'deathsByProvinceOfDomicile', 'deathsByRank']}
             layoutConfig={props.layoutConfig}
             doNotRenderOnMount
           />}
@@ -104,7 +104,7 @@ const Casualties = props => {
             facetClass='casualties'
             dropdownForResultClasses
             perspectiveStateType={intl.get(`perspectives.${perspective.id}.perspectiveStateType`)}
-            resultClasses={['deathsByLineMonth', 'deathsByAge', 'deathsByNumberOfChildren', 'deathsByOfficerRatio', 'deathsByProvinceOfDomicileRatio', 'deathsByRatioFromOfficers', 'deathsByRatioToAll']}
+            resultClasses={['deathsByLineMonth', 'deathsByAge', 'deathsByNumberOfChildren', 'deathsByOfficerRatio', 'deathsByProvinceOfDomicileRatio', 'deathsByRatioFromOfficers', 'deathsByRatioToAll', 'ageAverage']}
             doNotRenderOnMount
             screenSize={props.screenSize}
             layoutConfig={props.layoutConfig}

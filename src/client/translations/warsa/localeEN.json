@@ -189,6 +189,8 @@
       "deathsByMonth": "death month",
       "deathsByLineMonth": "death month",
       "deathsByAge": "Age",
+      "ageAverage": "Average age",
+      "deathsByRank": "Rank",
       "deathsByNumberOfChildren": "Number of children",
       "deathsByProvinceOfDomicile": "Province of domicile",
       "deathsByProvinceOfDomicileRatio": "Proportion of deaths from a province (defined in query)",

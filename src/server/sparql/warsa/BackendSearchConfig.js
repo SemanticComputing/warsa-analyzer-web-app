@@ -14,7 +14,9 @@ import {
   deathsByProvinceOfDomicileRatioQuery,
   deathsByOfficerRatioQuery,
   deathsByRatioToAllQuery,
-  deathsByRatioFromOfficersQuery
+  deathsByRatioFromOfficersQuery,
+  ageAverageQuery,
+  deathsByRankQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -77,6 +79,12 @@ export const backendSearchConfig = {
     filterTarget: 'record',
     resultMapper: mapPieChart
   },
+  deathsByRank: {
+    perspectiveID: 'casualties',
+    q: deathsByRankQuery,
+    filterTarget: 'record',
+    resultMapper: mapPieChart
+  },
   deathsByNumberOfChildren: {
     perspectiveID: 'casualties',
     q: deathsByNumberOfChildrenQuery,
@@ -136,6 +144,15 @@ export const backendSearchConfig = {
     q: deathsByAgeQuery,
     filterTarget: 'record',
     resultMapper: mapLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
+  },
+  ageAverage: {
+    perspectiveID: 'casualties',
+    q: ageAverageQuery,
+    filterTarget: 'record',
+    resultMapper: mapMonthLineChart,
     resultMapperConfig: {
       fillEmptyValues: true
     }
