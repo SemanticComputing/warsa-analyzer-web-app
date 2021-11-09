@@ -39,11 +39,6 @@ export const perspectiveConfig = [
         value: 3,
         icon: <LocationOnIcon />
       },
-      {
-        id: 'population_ratio_map',
-        value: 4,
-        icon: <LocationOnIcon />
-      }
     ],
     instancePageTabs: [
       {
