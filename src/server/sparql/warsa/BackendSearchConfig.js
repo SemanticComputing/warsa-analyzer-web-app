@@ -16,7 +16,8 @@ import {
   deathsByRatioToAllQuery,
   deathsByRatioFromOfficersQuery,
   ageAverageQuery,
-  deathsByRankQuery
+  deathsByRankQuery,
+  deathsByPopulationQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 
@@ -32,7 +33,8 @@ import {
   // toBarChartRaceFormat,
   toPolygonLayerFormat,
   mapPieChart,
-  mapMonthLineChart
+  mapMonthLineChart,
+  toLinearPercentagePolygonLayerFormat
 } from '../Mappers'
 
 export const backendSearchConfig = {
@@ -164,6 +166,18 @@ export const backendSearchConfig = {
     resultMapper: makeObjectList,
     postprocess: {
       func: toPolygonLayerFormat,
+      config: {
+        variable: 'death'
+      }
+    }
+  },
+  deathsByPopulation: {
+    perspectiveID: 'casualties',
+    q: deathsByPopulationQuery,
+    filterTarget: 'record',
+    resultMapper: makeObjectList,
+    postprocess: {
+      func: toLinearPercentagePolygonLayerFormat,
       config: {
         variable: 'death'
       }

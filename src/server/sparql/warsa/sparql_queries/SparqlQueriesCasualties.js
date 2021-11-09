@@ -215,21 +215,38 @@ export const deathsByLineMonthQuery = `
   ORDER BY ASC(?category)
   `
 
-export const deathsByMunicipalityQuery = `
-  SELECT ?id ?prefLabel ?polygon (count(DISTINCT ?record) as ?instanceCount) 
+export const deathsByPopulationQuery = `
+SELECT ?id ?prefLabel ?polygon ?population (COUNT(DISTINCT ?record)/?population*100 as ?instanceCount)
   WHERE {
-    { 
+      <FILTER>
+      ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
+          a warsa:DeathRecord .
+      ?id a <http://www.yso.fi/onto/suo/kunta> ;
+            skos:prefLabel ?prefLabel ;
+          sch:polygon ?polygon .
+    ?place skos:closeMatch ?id .
+    ?place warsa-a:population ?pop .
+    BIND (xsd:integer(?pop) AS ?population)
+  }
+  GROUP BY ?id ?prefLabel ?polygon ?population
+  ORDER BY desc(?instanceCount)
+`
+
+export const deathsByMunicipalityQuery = `
+  SELECT DISTINCT ?id ?prefLabel ?polygon (count(DISTINCT ?record) as ?instanceCount)
+  WHERE {
+    {
       ?id a <http://www.yso.fi/onto/suo/kunta> ;
           skos:prefLabel ?prefLabel ;
-          sch:polygon ?polygon .  
+          sch:polygon ?polygon .
     }
     UNION {
       <FILTER>
       ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
-          a warsa:DeathRecord .   
+          a warsa:DeathRecord .
       ?id a <http://www.yso.fi/onto/suo/kunta> ;
           skos:prefLabel ?prefLabel ;
-          sch:polygon ?polygon .      
+          sch:polygon ?polygon .
     }
   }
   GROUP BY ?id ?prefLabel ?polygon
@@ -241,7 +258,7 @@ SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?co
 WHERE{
   {
     <FILTER>
-    ?record a warsa:DeathRecord .  
+    ?record a warsa:DeathRecord .
       ?record warsa:date_of_death ?date_of_death .
       BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
       FILTER (?date_of_death > "1939-05-01"^^xsd:date)
@@ -268,7 +285,7 @@ SELECT ?category (COUNT(DISTINCT ?record)/COUNT(DISTINCT ?filteredRecord) AS ?co
 WHERE{
   {
     <FILTER>
-    ?record a warsa:DeathRecord . 
+    ?record a warsa:DeathRecord .
     ?record <http://ldf.fi/schema/warsa/casualties/rank> ?rank .
     ?rank dct:isPartOf* <http://ldf.fi/warsa/actors/ranks/Upseeri> .
       ?record warsa:date_of_death ?date_of_death .
@@ -296,7 +313,7 @@ export const deathsByRatioToAllQuery = `
 SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
 WHERE{
   {
-    ?record a warsa:DeathRecord .  
+    ?record a warsa:DeathRecord .
       ?record warsa:date_of_death ?date_of_death .
       BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
       FILTER (?date_of_death > "1939-05-01"^^xsd:date)

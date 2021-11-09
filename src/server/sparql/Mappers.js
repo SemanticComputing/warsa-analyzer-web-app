@@ -408,3 +408,66 @@ const getChoroplethMapColor = ({ value, clusters }) => {
   })
   return heatmapColor
 }
+
+export const toLinearPercentagePolygonLayerFormat = ({ data, config }) => {
+  // const scaledData = linearScale({ data, config })
+  const valuesArray = []
+  data.forEach(item => {
+    valuesArray.push(item.instanceCount)
+    const pointArray = item.polygon.split(' ')
+    const deckGlArray = pointArray.map(point => {
+      const latLng = point.split(',')
+      return [
+        parseFloat(parseFloat(latLng[0]).toFixed(4)),
+        parseFloat(parseFloat(latLng[1]).toFixed(4))
+      ]
+    })
+    item.polygon = deckGlArray
+  })
+  //console.log(data)
+  data.forEach(item => {
+    //console.log(getChoroplethMapColorByPercentage({ value: Number(item.instanceCount) }))
+    item.choroplethColor = getChoroplethMapColorByPercentage({ value: Number(item.instanceCount) })
+  })
+  return data
+}
+
+const getChoroplethMapColorByPercentage = ({ value }) => {
+  // https://colorbrewer2.org/#type=sequential&scheme=YlOrRd&n=8
+  const colors = [
+    [255, 255, 204],
+    [255, 237, 160],
+    [254, 217, 118],
+    [254, 178, 76],
+    [253, 141, 60],
+    [252, 78, 42],
+    [227, 26, 28],
+    [177, 0, 38],
+  ]
+  const intervals = [
+    0.0,
+    1.0,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0,
+    4.5
+  ]
+  let heatmapColor
+  colors.forEach((interval, index) => {
+    // console.log(value)
+    // console.log(intervals[index])
+    if (value >= intervals[index]) {
+      // console.log(colors[index])
+      heatmapColor = colors[index]
+    }
+  })
+  //const roundedValue = Math.round(value)
+  //if (!isNaN(roundedValue)) {
+  //  heatmapColor = colors[roundedValue]
+  //}
+
+  //console.log(heatmapColor)
+  return heatmapColor
+}

@@ -132,6 +132,28 @@ const Casualties = props => {
             layoutConfig={props.layoutConfig}
           />}
       />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/population_ratio_map`}
+        render={() =>
+          <Deck
+            center={props.perspectiveState.maps.casualtiesByMunicipality.center}
+            zoom={props.perspectiveState.maps.casualtiesByMunicipality.zoom}
+            results={props.perspectiveState.results}
+            facetUpdateID={props.facetState.facetUpdateID}
+            instanceAnalysisData={props.perspectiveState.instanceAnalysisData}
+            instanceAnalysisDataUpdateID={props.perspectiveState.instanceAnalysisDataUpdateID}
+            resultClass='deathsByPopulation'
+            facetClass='casualties'
+            fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
+            fetching={props.perspectiveState.fetching}
+            fetchingInstanceAnalysisData={props.perspectiveState.fetchingInstanceAnalysisData}
+            layerType='polygonLayer'
+            mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
+            mapBoxStyle={MAPBOX_STYLE}
+            layoutConfig={props.layoutConfig}
+          />}
+      />
     </>
   )
 }
