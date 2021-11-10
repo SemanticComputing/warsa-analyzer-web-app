@@ -11,11 +11,17 @@ import clientSideFacetedSearch from './sampo/clientSideFacetedSearch'
 import casualties from './warsa/casualties'
 import casualtiesFacets from './warsa/casualtiesFacets'
 import casualtiesFacetsConstrainSelf from './warsa/casualtiesFacetsConstrainSelf'
+import municipalities from './warsa/municipalities'
+import municipalitiesFacets from './warsa/municipalitiesFacets'
+import municipalitiesFacetsConstrainSelf from './warsa/municipalitiesFacetsConstrainSelf'
 
 const reducer = combineReducers({
   casualties,
   casualtiesFacets,
   casualtiesFacetsConstrainSelf,
+  municipalities,
+  municipalitiesFacets,
+  municipalitiesFacetsConstrainSelf,
   leafletMap,
   animation,
   options,

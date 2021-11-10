@@ -27,4 +27,5 @@ export const prefixes = `
   PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
   PREFIX ecrm: <http://erlangen-crm.org/current/>
   PREFIX warsa-a: <http://ldf.fi/schema/warsa/analytics/>
+  PREFIX suo: <http://www.yso.fi/onto/suo/>
 `

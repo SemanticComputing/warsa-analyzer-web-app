@@ -379,12 +379,15 @@ export const toPolygonLayerFormat = ({ data, config }) => {
       ]
     })
     item.polygon = deckGlArray
+    if (!config.ckmeansClustering) { item.choroplethColor = config.polygonColor }
   })
-  // Ckmeans algorithm: https://journal.r-project.org/archive/2011-2/RJournal_2011-2_Wang+Song.pdf
-  const clusters = ckmeans(valuesArray, 8)
-  data.forEach(item => {
-    item.choroplethColor = getChoroplethMapColor({ value: Number(item.instanceCount), clusters })
-  })
+  if (config.ckmeansClustering) {
+    // Ckmeans algorithm: https://journal.r-project.org/archive/2011-2/RJournal_2011-2_Wang+Song.pdf
+    const clusters = ckmeans(valuesArray, 8)
+    data.forEach(item => {
+      item.choroplethColor = getChoroplethMapColor({ value: Number(item.instanceCount), clusters })
+    })
+  }
   return data
 }
 
@@ -424,9 +427,9 @@ export const toLinearPercentagePolygonLayerFormat = ({ data, config }) => {
     })
     item.polygon = deckGlArray
   })
-  //console.log(data)
+  // console.log(data)
   data.forEach(item => {
-    //console.log(getChoroplethMapColorByPercentage({ value: Number(item.instanceCount) }))
+    // console.log(getChoroplethMapColorByPercentage({ value: Number(item.instanceCount) }))
     item.choroplethColor = getChoroplethMapColorByPercentage({ value: Number(item.instanceCount) })
   })
   return data
@@ -442,7 +445,7 @@ const getChoroplethMapColorByPercentage = ({ value }) => {
     [253, 141, 60],
     [252, 78, 42],
     [227, 26, 28],
-    [177, 0, 38],
+    [177, 0, 38]
   ]
   const intervals = [
     0.0,
@@ -463,11 +466,11 @@ const getChoroplethMapColorByPercentage = ({ value }) => {
       heatmapColor = colors[index]
     }
   })
-  //const roundedValue = Math.round(value)
-  //if (!isNaN(roundedValue)) {
+  // const roundedValue = Math.round(value)
+  // if (!isNaN(roundedValue)) {
   //  heatmapColor = colors[roundedValue]
-  //}
+  // }
 
-  //console.log(heatmapColor)
+  // console.log(heatmapColor)
   return heatmapColor
 }

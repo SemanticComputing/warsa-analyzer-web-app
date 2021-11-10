@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 // import EmloActors from './EmloActors'
 // import Hellerau from './Hellerau'
 const Casualties = lazy(() => import('./Casualties'))
+const Municipalities = lazy(() => import('./Municipalities'))
 
 /**
  * A component for creating a faceted search perspective for a semantic portal.
@@ -18,6 +19,10 @@ const FacetedSearchPerspective = props => {
       case 'casualties':
         perspectiveElement =
           <Casualties {...props} />
+        break
+      case 'municipalities':
+        perspectiveElement =
+          <Municipalities {...props} />
         break
       default:
         perspectiveElement = <div />

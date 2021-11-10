@@ -1,4 +1,5 @@
 import { casualtiesConfig } from './perspective_configs/CasualtiesConfig'
+import { municipalitiesConfig } from './perspective_configs/MunicipalitiesConfig'
 import {
   deathsByMonthQuery,
   deathsByHisclassQuery,
@@ -20,7 +21,7 @@ import {
   deathsByPopulationQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
-
+import { municipalitiesPolygonsQuery } from './sparql_queries/SparqlQueriesMunicipalities'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { sitemapInstancePageQuery } from '../SparqlQueriesGeneral'
@@ -39,6 +40,19 @@ import {
 
 export const backendSearchConfig = {
   casualties: casualtiesConfig,
+  municipalities: municipalitiesConfig,
+  municipalitiesPolygons: {
+    perspectiveID: 'municipalities',
+    filterTarget: 'id',
+    q: municipalitiesPolygonsQuery,
+    resultMapper: makeObjectList,
+    postprocess: {
+      func: toPolygonLayerFormat,
+      config: {
+        polygonColor: [255, 255, 204]
+      }
+    }
+  },
   hisclass5: {
     perspectiveID: 'casualties',
     q: deathsByHisclassQuery,

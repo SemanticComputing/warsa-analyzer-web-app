@@ -38,7 +38,7 @@ export const perspectiveConfig = [
         id: 'choropleth_map',
         value: 3,
         icon: <LocationOnIcon />
-      },
+      }
     ],
     instancePageTabs: [
       {
@@ -55,6 +55,31 @@ export const perspectiveConfig = [
         id: 'export',
         value: 2,
         icon: <CloudDownloadIcon />
+      }
+    ]
+  },
+  {
+    id: 'municipalities',
+    frontPageImage: casualtiesImage,
+    perspectiveDescHeight: 160,
+    defaultActiveFacets: new Set([]),
+    tabs: [
+      {
+        id: 'polygons',
+        value: 0,
+        icon: <LocationOnIcon />
+      },
+      {
+        id: 'table',
+        value: 1,
+        icon: <CalendarViewDayIcon />
+      }
+    ],
+    instancePageTabs: [
+      {
+        id: 'table',
+        value: 0,
+        icon: <CalendarViewDayIcon />
       }
     ]
   }
