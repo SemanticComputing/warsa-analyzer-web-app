@@ -6,8 +6,8 @@ import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const municipalitiesConfig = {
   endpoint: {
-    // url: 'http://ldf.fi/warsa/sparql',
-    url: 'http://localhost:3030/ds/sparql',
+    url: 'http://ldf.fi/warsa/sparql',
+    // url: 'http://localhost:3030/ds/sparql',
     prefixes,
     useAuth: false
   },
