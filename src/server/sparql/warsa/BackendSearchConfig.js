@@ -181,7 +181,7 @@ export const backendSearchConfig = {
     postprocess: {
       func: toPolygonLayerFormat,
       config: {
-        variable: 'death'
+        ckmeansClustering: true
       }
     }
   },
@@ -191,10 +191,7 @@ export const backendSearchConfig = {
     filterTarget: 'record',
     resultMapper: makeObjectList,
     postprocess: {
-      func: toLinearPercentagePolygonLayerFormat,
-      config: {
-        variable: 'death'
-      }
+      func: toLinearPercentagePolygonLayerFormat
     }
   },
   jenaText: {
