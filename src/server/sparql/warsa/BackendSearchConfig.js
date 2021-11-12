@@ -18,7 +18,8 @@ import {
   deathsByRatioFromOfficersQuery,
   ageAverageQuery,
   deathsByRankQuery,
-  deathsByPopulationQuery
+  deathsByPopulationQuery,
+  deathsToPopulationPercentageByProvinceQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
 import { municipalitiesPolygonsQuery } from './sparql_queries/SparqlQueriesMunicipalities'
@@ -98,6 +99,12 @@ export const backendSearchConfig = {
   deathsByRank: {
     perspectiveID: 'casualties',
     q: deathsByRankQuery,
+    filterTarget: 'record',
+    resultMapper: mapPieChart
+  },
+  deathsToPopulationByProvince: {
+    perspectiveID: 'casualties',
+    q: deathsToPopulationPercentageByProvinceQuery,
     filterTarget: 'record',
     resultMapper: mapPieChart
   },

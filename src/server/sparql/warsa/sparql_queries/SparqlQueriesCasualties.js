@@ -400,3 +400,21 @@ WHERE {
 GROUP BY ?category
 ORDER BY ASC(?category)
 `
+
+export const deathsToPopulationPercentageByProvinceQuery = `
+SELECT DISTINCT ?category ?prefLabel (COUNT(DISTINCT ?record)/SUM(DISTINCT ?population)*10000 AS ?instanceCount)
+  WHERE {
+    <FILTER>
+    ?record a warsa:DeathRecord .
+    ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?municipality .
+    ?municipality geos:sfWithin+ ?category .
+    ?category skos:prefLabel ?prefLabel .
+    ?category a <http://www.yso.fi/onto/suo/laani> .
+    FILTER (LANG(?prefLabel) = 'fi')
+    ?place skos:closeMatch ?municipality .
+     ?place warsa-a:population ?pop .
+    BIND (xsd:integer(?pop) AS ?population)
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY DESC(?prefLabel)
+`
