@@ -271,7 +271,7 @@
     "municipalities": {
       "label": "Municipalities",
       "facetResultsType": "municipalities",
-      "shortDescription": "Finnish municipalities 1939-1945",
+      "shortDescription": "Finnish municipalities 1939-1944",
       "longDescription": "<p class=\"MuiTypography-root MuiTypography-body1 MuiTypography-paragraph\"> </p>",
       "instancePage": {
         "label": "Death record",
