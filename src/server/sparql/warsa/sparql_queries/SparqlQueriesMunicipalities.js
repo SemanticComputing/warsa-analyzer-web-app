@@ -11,9 +11,10 @@ export const municipalityPropertiesFacetResults = `
 `
 
 export const municipalitiesPolygonsQuery = `
-  SELECT ?id ?polygon {
+  SELECT * {
     <FILTER>
     ?id a suo:kunta ;
+          skos:prefLabel ?prefLabel ;
           sch:polygon ?polygon .      
   }
 `

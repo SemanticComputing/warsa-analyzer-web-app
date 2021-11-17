@@ -275,7 +275,7 @@ class Deck extends React.Component {
                     getTooltip: ({ object }) => object && {
                       html: `
                       <h2>${object.prefLabel}</h2>
-                      <div>${parseFloat(object.instanceCount).toFixed(2)}</div>
+                      <div>${object.instanceCount ? parseFloat(object.instanceCount).toFixed(2) : ''}</div>
                     `
                     // style: {
                     //   backgroundColor: '#f00',
