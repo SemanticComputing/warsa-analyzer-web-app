@@ -6,6 +6,7 @@ import { ArcLayer, PolygonLayer } from '@deck.gl/layers'
 import { HeatmapLayer, HexagonLayer } from '@deck.gl/aggregation-layers'
 import ReactMapGL, { NavigationControl, FullscreenControl, HTMLOverlay } from 'react-map-gl'
 import DeckArcLayerLegend from './DeckArcLayerLegend'
+import DeckDialog from './DeckDialog'
 import DeckArcLayerDialog from './DeckArcLayerDialog'
 import DeckArcLayerTooltip from './DeckArcLayerTooltip'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -67,6 +68,7 @@ class Deck extends React.Component {
       from: null,
       to: null
     },
+    hoveredPolygon: null,
     hoverInfo: null
   }
 
@@ -106,18 +108,25 @@ class Deck extends React.Component {
   }
 
   setDialog = info => {
+    const {
+      id = null,
+      from = null,
+      to = null
+    } = info.object
     this.setState({
       dialog: {
         open: true,
-        from: info.object.from,
-        to: info.object.to
+        id,
+        from,
+        to
       }
     })
     this.props.fetchInstanceAnalysis({
       resultClass: `${this.props.resultClass}Dialog`,
       facetClass: this.props.facetClass,
-      fromID: info.object.from.id,
-      toID: info.object.to.id
+      uri: id,
+      fromID: from,
+      toID: to
     })
   }
 
@@ -199,9 +208,30 @@ class Deck extends React.Component {
         filled: true,
         lineWidthMinPixels: 1,
         getPolygon: d => d.polygon,
-        getFillColor: d => d.choroplethColor,
-        getLineColor: [80, 80, 80],
-        getLineWidth: 1
+        getFillColor: d => {
+          return d.choroplethColor
+        },
+        getLineColor: d => {
+          if (d.id && d.id === this.state.hoveredPolygon) {
+            return [255, 0, 0]
+          } else {
+            return [80, 80, 80]
+          }
+        },
+        getLineWidth: 500,
+        onClick: info => this.setDialog(info),
+        onHover: info => {
+          if (!info.picked) {
+            this.setState({ hoveredPolygon: null })
+          }
+          if (info.object) {
+            this.setState({ hoveredPolygon: info.object.id })
+          }
+        },
+        updateTriggers: {
+          // This tells deck.gl to recalculate line color when hoveredPolygon changes
+          getLineColor: this.state.hoveredPolygon
+        }
       })
 
     render () {
@@ -276,6 +306,7 @@ class Deck extends React.Component {
                       html: `
                       <h2>${object.prefLabel}</h2>
                       <div>${object.instanceCount ? parseFloat(object.instanceCount).toFixed(2) : ''}</div>
+                      <div>${object.polygonSource ? `Polygon source: ${object.polygonSource}` : ''}</div>
                     `
                     // style: {
                     //   backgroundColor: '#f00',
@@ -287,6 +318,13 @@ class Deck extends React.Component {
               }
             />
             {this.renderSpinner()}
+            {layerType === 'polygonLayer' && this.props.instanceAnalysisData && this.state.dialog.open &&
+              <DeckDialog
+                onClose={this.closeDialog.bind(this)}
+                data={this.props.instanceAnalysisData}
+                resultClass={this.props.resultClass}
+                facetClass={this.props.facetClass}
+              />}
             {layerType === 'arcLayer' && this.props.instanceAnalysisData && this.state.dialog.open &&
               <DeckArcLayerDialog
                 onClose={this.closeDialog.bind(this)}

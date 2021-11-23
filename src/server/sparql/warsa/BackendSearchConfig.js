@@ -22,7 +22,7 @@ import {
   deathsToPopulationPercentageByProvinceQuery
   // knowledgeGraphMetadataQuery
 } from './sparql_queries/SparqlQueriesCasualties'
-import { municipalitiesPolygonsQuery } from './sparql_queries/SparqlQueriesMunicipalities'
+import { municipalitiesPolygonsQuery, municipalitiesPolygonsDialogQuery } from './sparql_queries/SparqlQueriesMunicipalities'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { sitemapInstancePageQuery } from '../SparqlQueriesGeneral'
@@ -53,6 +53,12 @@ export const backendSearchConfig = {
         polygonColor: [255, 255, 204]
       }
     }
+  },
+  municipalitiesPolygonsDialog: {
+    perspectiveID: 'municipalities',
+    q: municipalitiesPolygonsDialogQuery,
+    // filterTarget: 'id',
+    resultMapper: makeObjectList
   },
   hisclass5: {
     perspectiveID: 'casualties',

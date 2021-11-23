@@ -16,5 +16,14 @@ export const municipalitiesPolygonsQuery = `
     ?id a suo:kunta ;
           skos:prefLabel ?prefLabel ;
           sch:polygon ?polygon .      
+    OPTIONAL { ?id municipalities:polygon_source ?polygonSource }      
+  }
+`
+
+export const municipalitiesPolygonsDialogQuery = `
+  SELECT * {
+    BIND(<ID> as ?id)
+    ?id skos:prefLabel ?prefLabel .     
+    OPTIONAL { ?id municipalities:polygon_source ?polygonSource }
   }
 `

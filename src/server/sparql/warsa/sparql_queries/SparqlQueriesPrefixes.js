@@ -21,6 +21,7 @@ export const prefixes = `
   PREFIX gn: <http://www.geonames.org/ontology#>
   PREFIX warsa: <http://ldf.fi/schema/warsa/>
   PREFIX casualties: <http://ldf.fi/schema/warsa/casualties/>
+  PREFIX municipalities: <http://ldf.fi/warsa/places/municipalities/>
   PREFIX bioc: <http://ldf.fi/schema/bioc/>
   PREFIX ammo: <http://ldf.fi/schema/ammo/>
   PREFIX geos: <http://www.opengis.net/ont/geosparql#>

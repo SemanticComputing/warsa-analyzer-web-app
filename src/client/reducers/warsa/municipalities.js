@@ -50,7 +50,8 @@ export const INITIAL_STATE = {
 
 const resultClasses = new Set([
   'municipalities',
-  'municipalitiesPolygons'
+  'municipalitiesPolygons',
+  'municipalitiesPolygonsDialog'
 ])
 
 const municipalities = (state = INITIAL_STATE, action) => {
