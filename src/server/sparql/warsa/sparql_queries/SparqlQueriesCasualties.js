@@ -1,95 +1,98 @@
 const perspectiveID = 'casualties'
 
-export const casualtyPropertiesInstancePage =
-`   {
-      ?id skos:prefLabel ?prefLabel__id .
-      BIND (?prefLabel__id as ?prefLabel__prefLabel)
-      BIND(?id as ?uri__id)
-      BIND(?id as ?uri__dataProviderUrl)
-      BIND(?id as ?uri__prefLabel)
-    }
+export const casualtyPropertiesInstancePage = `   
+  {
+    ?id skos:prefLabel ?prefLabel__id .
+    BIND (?prefLabel__id as ?prefLabel__prefLabel)
+    BIND(?id as ?uri__id)
+    BIND(?id as ?uri__dataProviderUrl)
+    BIND(?id as ?uri__prefLabel)
+  }
 `
 
-export const casualtyPropertiesFacetResults =
-  `?id skos:prefLabel ?prefLabel__id .
-      BIND (?prefLabel__id as ?prefLabel__prefLabel)
-      BIND (?id AS ?prefLabel__dataProviderUrl)
-      #BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-      BIND(?id as ?uri__id)
-      BIND(?id as ?uri__dataProviderUrl)
-      BIND(?id as ?uri__prefLabel)
-      {
-        ?id casualties:municipality_of_domicile ?municipalityOfDomicile__id .
-        ?municipalityOfDomicile__id skos:prefLabel ?municipalityOfDomicile__prefLabel .
-      }
-      UNION
-      {
-        ?id casualties:municipality_of_death ?municipalityOfDeath__id .
-        ?municipalityOfDeath__id skos:prefLabel ?municipalityOfDeath__prefLabel .
-      }
-      UNION
-      {
-        ?id casualties:rank ?rank__id .
-        ?rank__id skos:prefLabel ?rank__prefLabel .
-      }
-      UNION
-      {
-        ?id warsa:date_of_death ?deathTimeTimespan__id .
-        BIND (STR(?deathTimeTimespan__id) AS ?deathTimeTimespan__prefLabel) .
-      }
-      UNION
-      {
-        ?id bioc:has_occupation ?occupation__id .
-        ?occupation__id skos:prefLabel ?occupation__prefLabel .
-        FILTER (LANG(?occupation__prefLabel) = 'fi')
-      }
-      UNION
-      {
-        ?id warsa:gender ?gender__id .
-        ?gender__id skos:prefLabel ?gender__prefLabel .
-      }
-      UNION
-      {
-        ?id warsa:mother_tongue ?motherTongue__id .
-        ?motherTongue__id skos:prefLabel ?motherTongue__prefLabel .
-      }
-      UNION
-      {
-        ?id warsa:marital_status ?maritalStatus__id .
-        ?maritalStatus__id skos:prefLabel ?maritalStatus__prefLabel .
-      }
-      UNION
-      {
-        ?id casualties:perishing_category ?perishingCategory__id .
-        ?perishingCategory__id skos:prefLabel ?perishingCategory__prefLabel .
-      }
-      UNION
-      {
-        ?id casualties:unit ?unit__id .
-        ?unit__id skos:prefLabel ?unit__prefLabel .
-      }
+export const casualtyPropertiesFacetResults = `
+  {
+    ?id skos:prefLabel ?prefLabel__id .
+    BIND (?prefLabel__id as ?prefLabel__prefLabel)
+    BIND (?id AS ?prefLabel__dataProviderUrl)
+    #BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+    BIND(?id as ?uri__id)
+    BIND(?id as ?uri__dataProviderUrl)
+    BIND(?id as ?uri__prefLabel)
+  }
+  UNION
+  {
+    ?id casualties:municipality_of_domicile ?municipalityOfDomicile__id .
+    ?municipalityOfDomicile__id skos:prefLabel ?municipalityOfDomicile__prefLabel .
+  }
+  UNION
+  {
+    ?id casualties:municipality_of_death ?municipalityOfDeath__id .
+    ?municipalityOfDeath__id skos:prefLabel ?municipalityOfDeath__prefLabel .
+  }
+  UNION
+  {
+    ?id casualties:rank ?rank__id .
+    ?rank__id skos:prefLabel ?rank__prefLabel .
+  }
+  UNION
+  {
+    ?id warsa:date_of_death ?deathTimeTimespan__id .
+    BIND (STR(?deathTimeTimespan__id) AS ?deathTimeTimespan__prefLabel) .
+  }
+  UNION
+  {
+    ?id bioc:has_occupation ?occupation__id .
+    ?occupation__id skos:prefLabel ?occupation__prefLabel .
+    FILTER (LANG(?occupation__prefLabel) = 'fi')
+  }
+  UNION
+  {
+    ?id warsa:gender ?gender__id .
+    ?gender__id skos:prefLabel ?gender__prefLabel .
+  }
+  UNION
+  {
+    ?id warsa:mother_tongue ?motherTongue__id .
+    ?motherTongue__id skos:prefLabel ?motherTongue__prefLabel .
+  }
+  UNION
+  {
+    ?id warsa:marital_status ?maritalStatus__id .
+    ?maritalStatus__id skos:prefLabel ?maritalStatus__prefLabel .
+  }
+  UNION
+  {
+    ?id casualties:perishing_category ?perishingCategory__id .
+    ?perishingCategory__id skos:prefLabel ?perishingCategory__prefLabel .
+  }
+  UNION
+  {
+    ?id casualties:unit ?unit__id .
+    ?unit__id skos:prefLabel ?unit__prefLabel .
+  }
 `
 
 export const deathsByHisclassQuery = `
-    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
-    WHERE {
-    <FILTER>
-      ?record a warsa:DeathRecord ;
-        bioc:has_occupation ?occupation .
-      ?occupation ammo:hisclass5 ?class .
-      ?class skos:altLabel ?hisclass .
+  SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+  WHERE {
+  <FILTER>
+    ?record a warsa:DeathRecord ;
+      bioc:has_occupation ?occupation .
+    ?occupation ammo:hisclass5 ?class .
+    ?class skos:altLabel ?hisclass .
+    BIND(
+      IF(?occupation = <http://ldf.fi/ammo/tyomies>, 5,
+        IF(?occupation = <http://ldf.fi/ammo/sekatyomies>, 5, xsd:integer(?hisclass)))
+      AS ?prefLabel)
       BIND(
-        IF(?occupation = <http://ldf.fi/ammo/tyomies>, 5,
-          IF(?occupation = <http://ldf.fi/ammo/sekatyomies>, 5, xsd:integer(?hisclass)))
-        AS ?prefLabel)
-        BIND(
-          IF(?occupation = <http://ldf.fi/ammo/tyomies>, <http://ldf.fi/ammo/hisco/hisclass5/5> ,
-            IF(?occupation = <http://ldf.fi/ammo/sekatyomies>, <http://ldf.fi/ammo/hisco/hisclass5/5> , ?class))
-          AS ?category)
-      FILTER (?prefLabel != '-1')
-    }
-    GROUP BY ?category ?prefLabel
-    ORDER BY DESC(?prefLabel)
+        IF(?occupation = <http://ldf.fi/ammo/tyomies>, <http://ldf.fi/ammo/hisco/hisclass5/5> ,
+          IF(?occupation = <http://ldf.fi/ammo/sekatyomies>, <http://ldf.fi/ammo/hisco/hisclass5/5> , ?class))
+        AS ?category)
+    FILTER (?prefLabel != '-1')
+  }
+  GROUP BY ?category ?prefLabel
+  ORDER BY DESC(?instanceCount)
 `
 
 export const deathsByMonthQuery = `
@@ -104,12 +107,12 @@ export const deathsByMonthQuery = `
     FILTER (?date_of_death < "1945-05-01"^^xsd:date)
   }
   GROUP BY ?category ?prefLabel
-  ORDER BY ASC(?prefLabel)
+  ORDER BY DESC(?instanceCount)
 `
 
 export const deathsByPerishingCategoryQuery = `
-    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
-    WHERE {
+  SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+  WHERE {
     <FILTER>
     ?record a warsa:DeathRecord .
     ?record casualties:perishing_category ?category .
@@ -117,7 +120,7 @@ export const deathsByPerishingCategoryQuery = `
     FILTER (LANG(?prefLabel) = 'fi')
   }
   GROUP BY ?category ?prefLabel
-  ORDER BY ASC(?prefLabel)
+  ORDER BY DESC(?instanceCount)
 `
 
 export const deathsByRankQuery = `
@@ -132,12 +135,12 @@ export const deathsByRankQuery = `
     FILTER (LANG(?prefLabel) = 'fi')
   }
   GROUP BY ?category ?prefLabel
-  ORDER BY ASC(?prefLabel)
+  ORDER BY DESC(?instanceCount)
 `
 
 export const deathsByMotherTongueQuery = `
-    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
-    WHERE {
+  SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+  WHERE {
     <FILTER>
     ?record a warsa:DeathRecord .
     ?record warsa:mother_tongue ?category .
@@ -145,12 +148,12 @@ export const deathsByMotherTongueQuery = `
     FILTER (LANG(?prefLabel) = 'fi')
   }
   GROUP BY ?category ?prefLabel
-  ORDER BY ASC(?prefLabel)
+  ORDER BY DESC(?instanceCount)
 `
 
 export const deathsByMaritalStatusQuery = `
-    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
-    WHERE {
+  SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+  WHERE {
     <FILTER>
     ?record a warsa:DeathRecord .
     ?record warsa:marital_status ?category .
@@ -158,12 +161,12 @@ export const deathsByMaritalStatusQuery = `
     FILTER (LANG(?prefLabel) = 'fi')
   }
   GROUP BY ?category ?prefLabel
-  ORDER BY ASC(?prefLabel)
+  ORDER BY DESC(?instanceCount)
 `
 
 export const deathsByGenderQuery = `
-    SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
-    WHERE {
+  SELECT ?category ?prefLabel (COUNT(DISTINCT ?record) AS ?instanceCount)
+  WHERE {
     <FILTER>
     ?record a warsa:DeathRecord .
     ?record warsa:gender ?category .
@@ -202,8 +205,8 @@ export const deathsByAgeQuery = `
 `
 
 export const deathsByLineMonthQuery = `
-    SELECT ?category (COUNT(DISTINCT ?record) AS ?count)
-    WHERE {
+  SELECT ?category (COUNT(DISTINCT ?record) AS ?count)
+  WHERE {
     <FILTER>
     ?record a warsa:DeathRecord .
     ?record warsa:date_of_death ?date_of_death .
@@ -216,14 +219,14 @@ export const deathsByLineMonthQuery = `
   `
 
 export const deathsByPopulationQuery = `
-SELECT ?id ?prefLabel ?polygon ?population (COUNT(DISTINCT ?record)/?population*100 as ?instanceCount)
+  SELECT ?id ?prefLabel ?polygon ?population (COUNT(DISTINCT ?record)/?population*100 as ?instanceCount)
   WHERE {
-      <FILTER>
-      ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
-          a warsa:DeathRecord .
-      ?id a <http://www.yso.fi/onto/suo/kunta> ;
-            skos:prefLabel ?prefLabel ;
-          sch:polygon ?polygon .
+    <FILTER>
+    ?record casualties:municipality_of_domicile/casualties:preferred_municipality ?id ;
+        a warsa:DeathRecord .
+    ?id a <http://www.yso.fi/onto/suo/kunta> ;
+          skos:prefLabel ?prefLabel ;
+        sch:polygon ?polygon .
     ?place skos:closeMatch ?id .
     ?place warsa-a:population ?pop .
     BIND (xsd:integer(?pop) AS ?population)
@@ -255,7 +258,7 @@ export const deathsByMunicipalityQuery = `
 
 export const deathsByOfficerRatioQuery = `
 SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
-WHERE{
+WHERE {
   {
     <FILTER>
     ?record a warsa:DeathRecord .
@@ -282,7 +285,7 @@ ORDER BY asc(?category)
 
 export const deathsByRatioFromOfficersQuery = `
 SELECT ?category (COUNT(DISTINCT ?record)/COUNT(DISTINCT ?filteredRecord) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
-WHERE{
+WHERE {
   {
     <FILTER>
     ?record a warsa:DeathRecord .
@@ -311,7 +314,7 @@ ORDER BY asc(?category)
 // Compare filtered group to all
 export const deathsByRatioToAllQuery = `
 SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
-WHERE{
+WHERE {
   {
     ?record a warsa:DeathRecord .
       ?record warsa:date_of_death ?date_of_death .
@@ -344,47 +347,46 @@ export const deathsByProvinceOfDomicileQuery = `
     FILTER (LANG(?prefLabel) = 'fi')
   }
   GROUP BY ?category ?prefLabel
-  ORDER BY DESC(?prefLabel)
+  ORDER BY desc(?instanceCount)
 `
 
 export const deathsByProvinceOfDomicileRatioQuery = `
-SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
-WHERE {
-  {
-    <FILTER>
-    ?record a warsa:DeathRecord .
-    ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?province .
-    ?province skos:prefLabel ?prefLabel .
-    ?province a <http://www.yso.fi/onto/suo/laani> . # This limits counting to places with hierarchy with lääni. The numbers won't be exactly accccurate.
-    FILTER (LANG(?prefLabel) = 'fi')
-    ?record warsa:date_of_death ?date_of_death .
-    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
-    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
-    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+  SELECT ?category (COUNT(DISTINCT ?filteredRecord)/COUNT(DISTINCT ?record) AS ?count) (COUNT(DISTINCT ?record) AS ?allRecords)
+  WHERE {
+    {
+      <FILTER>
+      ?record a warsa:DeathRecord .
+      ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?province .
+      ?province skos:prefLabel ?prefLabel .
+      ?province a <http://www.yso.fi/onto/suo/laani> . # This limits counting to places with hierarchy with lääni. The numbers won't be exactly accccurate.
+      FILTER (LANG(?prefLabel) = 'fi')
+      ?record warsa:date_of_death ?date_of_death .
+      BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+      FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+      FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+    }
+    UNION
+    {
+      <FILTER>
+      ?record a warsa:DeathRecord .
+      BIND(?record AS ?filteredRecord)
+      ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?province .
+      ?province skos:prefLabel ?prefLabel .
+      ?province a <http://www.yso.fi/onto/suo/laani> .
+      FILTER (?prefLabel = "Viipurin lääni"@fi)  # This needs to be changed manually from the query
+      ?filteredRecord warsa:date_of_death ?date_of_death .
+      BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
+      FILTER (?date_of_death > "1939-05-01"^^xsd:date)
+      FILTER (?date_of_death < "1945-05-01"^^xsd:date)
+    }
   }
-  UNION
-  {
-    <FILTER>
-    ?record a warsa:DeathRecord .
-    BIND(?record AS ?filteredRecord)
-    ?record casualties:municipality_of_domicile/casualties:preferred_municipality/geos:sfWithin+ ?province .
-    ?province skos:prefLabel ?prefLabel .
-    ?province a <http://www.yso.fi/onto/suo/laani> .
-    FILTER (?prefLabel = "Viipurin lääni"@fi)  # This needs to be changed manually from the query
-    ?filteredRecord warsa:date_of_death ?date_of_death .
-    BIND(SUBSTR(str(?date_of_death),1,7) AS ?category)
-    FILTER (?date_of_death > "1939-05-01"^^xsd:date)
-    FILTER (?date_of_death < "1945-05-01"^^xsd:date)
-  }
-}
-GROUP BY ?category
-HAVING (?allRecords > 10)
-ORDER BY ASC(?category)
-
+  GROUP BY ?category
+  HAVING (?allRecords > 10)
+  ORDER BY ASC(?category)
 `
 
 export const ageAverageQuery = `
-SELECT DISTINCT ?category (AVG(?age) AS ?count)
+SELECT DISTINCT ?category (ROUND(AVG(?age)) AS ?count)
 WHERE {
   <FILTER>
   ?record a warsa:DeathRecord .

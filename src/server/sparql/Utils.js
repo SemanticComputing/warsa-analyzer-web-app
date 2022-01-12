@@ -3,8 +3,8 @@ import { has } from 'lodash'
 
 // import { backendSearchConfig as oldBackendSearchConfig } from './veterans/BackendSearchConfig'
 
-// import { battlesPerspectiveConfig as oldPerspectiveConfig } from './sotasurmat/perspective_configs/BattlesPerspectiveConfig'
-// import { INITIAL_STATE } from '../../client/reducers/sotasurmat/battlesFacets'
+// import { casualtiesConfig as oldPerspectiveConfig } from './warsa/perspective_configs/CasualtiesConfig'
+// import { INITIAL_STATE } from '../../client/reducers/warsa/casualtiesFacets'
 
 export const createBackendSearchConfig = async () => {
   const portalConfigJSON = await readFile('src/configs/portalConfig.json')

@@ -1,23 +1,11 @@
 {
-    "portalID": "sampo",
+    "portalID": "warsa",
     "rootUrl": "",
     "perspectives": {
         "searchPerspectives": [
-            "perspective1",
-            "perspective2",
-            "perspective3",
-            "perspective4",
-            "fullTextSearch"
+            "casualties"
         ],
-        "onlyInstancePages": [
-            "manuscripts",
-            "collections",
-            "works",
-            "expressions",
-            "events",
-            "actors",
-            "places"
-        ]
+        "onlyInstancePages": []
     },
     "localeConfig": {
         "defaultLocale": "en",
@@ -27,20 +15,15 @@
                 "id": "en",
                 "label": "English",
                 "filename": "localeEN.json"
-            },
-            {
-                "id": "fi",
-                "label": "English",
-                "filename": "localeFI.json"
             }
         ]
     },
     "sitemapConfig": {
-        "baseUrl": "https://sampo-ui.demo.seco.cs.aalto.fi",
+        "baseUrl": "",
         "langPrimary": "en",
         "langSecondary": "fi",
         "outputDir": "./src/server/sitemap_generator",
-        "sitemapUrl": "https://sampo-ui.demo.seco.cs.aalto.fi/sitemap",
+        "sitemapUrl": "",
         "sitemapInstancePageQuery": "sitemapInstancePageQuery"
     },
     "knowledgeGraphMetadataConfig": {
@@ -62,6 +45,7 @@
         "paginationToolbarHeight": 37,
         "tableFontSize": "0.8rem",
         "topBar": {
+            "logoTextTransform": "none",
             "showLanguageButton": true,
             "feedbackLink": "https://link.webropolsurveys.com/...",
             "externalInstructions": false,
@@ -84,7 +68,7 @@
             ]
         },
         "mainPage": {
-            "bannerImage": "main_page/mmm-banner.jpg",
+            "bannerImage": "main_page/warsabanner.jpg",
             "bannerBackround": "linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url(<BANNER_IMAGE_URL)",
             "bannerMobileHeight": 150,
             "bannerReducedHeight": 220,
@@ -117,7 +101,7 @@
         "yasguiParams": {
             "contentTypeConstruct": "text/turtle",
             "contentTypeSelect": "application/sparql-results+json",
-            "endpoint": "https://ldf.fi/mmm/sparql",
+            "endpoint": "https://ldf.fi/warsa/sparql",
             "requestMethod": "POST",
             "tabTitle": "Exported query"
         }
