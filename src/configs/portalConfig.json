@@ -3,7 +3,8 @@
     "rootUrl": "",
     "perspectives": {
         "searchPerspectives": [
-            "casualties"
+            "casualties",
+            "municipalities"
         ],
         "onlyInstancePages": []
     },

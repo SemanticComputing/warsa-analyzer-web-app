@@ -259,8 +259,16 @@
         },
         "prefLabel": {
           "label": "Name",
-          "description": "Full name.",
+          "description": "Name",
           "textFacetInputPlaceholder": "Search..."
+        },
+        "county": {
+          "label": "County",
+          "description": "County"
+        },
+        "source": {
+          "label": "Source",
+          "description": "Source"
         }
       }
     }
