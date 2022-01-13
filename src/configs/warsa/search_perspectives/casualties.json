@@ -17,7 +17,7 @@
     "defaultTab": "table",
     "defaultInstancePageTab": "table",
     "maps": {
-        "casualtiesByMunicipality": {
+        "deathsByMunicipalityOfDomicile": {
             "center": [
                 65.184809,
                 27.314050
@@ -60,7 +60,7 @@
             "tabID": 1,
             "component": "ApexCharts",
             "doNotRenderOnMount": true,
-            "tabPath": "pie_chart",
+            "tabPath": "pie-chart",
             "tabIcon": "PieChart",
             "facetClass": "casualties",
             "dropdownForResultClasses": true,
@@ -209,7 +209,7 @@
             "tabID": 2,
             "component": "ApexCharts",
             "doNotRenderOnMount": true,
-            "tabPath": "line_chart",
+            "tabPath": "line-chart",
             "tabIcon": "ShowChart",
             "facetClass": "casualties",
             "dropdownForResultClasses": true,
@@ -350,6 +350,22 @@
                     "resultMapperConfig": {
                         "fillEmptyValues": true
                     }
+                }
+            }
+        },
+        "deathsByMunicipalityOfDomicile": {
+            "tabID": 3,
+            "component": "Deck",
+            "tabPath": "choropleth-map",
+            "tabIcon": "LocationOn",
+            "sparqlQuery": "deathsByMunicipalityOfDomicileQuery",
+            "facetClass": "casualties",
+            "filterTarget": "record",
+            "layerType": "polygonLayer",
+            "postprocess": {
+                "func": "toPolygonLayerFormat",
+                "config": {
+                    "ckmeansClustering": true
                 }
             }
         },

@@ -235,7 +235,7 @@ export const deathsByPopulationQuery = `
   ORDER BY desc(?instanceCount)
 `
 
-export const deathsByMunicipalityQuery = `
+export const deathsByMunicipalityOfDomicileQuery = `
   SELECT DISTINCT ?id ?prefLabel ?polygon (count(DISTINCT ?record) as ?instanceCount)
   WHERE {
     {
