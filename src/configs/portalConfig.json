@@ -40,8 +40,8 @@
                 "main": "#EB1806"
             }
         },
-        "hundredPercentHeightBreakPoint": "md",
-        "reducedHeightBreakpoint": "xl",
+        "hundredPercentHeightBreakPoint": 900,
+        "reducedHeightBreakpoint": 1920,
         "tabHeight": 58,
         "paginationToolbarHeight": 37,
         "tableFontSize": "0.8rem",
@@ -51,7 +51,7 @@
             "feedbackLink": "https://link.webropolsurveys.com/...",
             "externalInstructions": false,
             "externalAboutPage": false,
-            "reducedHeight": 44,
+            "reducedHeight": 48,
             "defaultHeight": 64,
             "mobileMenuBreakpoint": 1360,
             "infoDropdown": [
@@ -73,7 +73,8 @@
             "bannerBackround": "linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) ), url(<BANNER_IMAGE_URL)",
             "bannerMobileHeight": 150,
             "bannerReducedHeight": 220,
-            "bannerDefaultHeight": 300
+            "bannerDefaultHeight": 300,
+            "wrapSubheading": false
         },
         "infoHeader": {
             "default": {

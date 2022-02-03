@@ -90,7 +90,7 @@ export const createMultipleLineChartData = ({
   const series = []
   for (const lineID in results) {
     series.push({
-      name: intl.get(`lineChart.${lineID}`),
+      name: intl.get(`lineChart.${lineID}`) || lineID,
       data: results[lineID]
     })
   }
@@ -124,6 +124,117 @@ export const createMultipleLineChartData = ({
     ...(stroke) && { stroke },
     ...(fill) && { fill },
     ...(tooltip) && { tooltip }
+  }
+  return apexChartOptionsWithData
+}
+
+export const createTopTimelineChartData = ({
+  resultClass,
+  facetClass,
+  perspectiveState,
+  results,
+  resultClassConfig,
+  screenSize
+}) => {
+  // console.log('topN', results.topN)
+  const {
+    title,
+    fill,
+    tooltip,
+    legend,
+    grid
+  } = resultClassConfig
+  results.series.forEach(x => { x.name = intl.get(`lineChart.${x.name}`) || x.name })
+  const apexChartOptionsWithData = {
+    chart: {
+      id: 'topN',
+      type: 'scatter',
+      width: '100%',
+      height: '100%',
+      fontFamily: 'Roboto',
+      toolbar: {
+        autoSelected: 'pan',
+        show: true
+      }
+    },
+    series: results.series,
+    title: {
+      text: title.replace(/{}/g, results.topN.toString()),
+      align: 'left'
+    },
+    xaxis: {
+      type: 'datetime',
+      min: results.minUTC,
+      max: results.maxUTC,
+      lines: {
+        show: true
+      }
+    },
+    yaxis: {
+      min: -1,
+      max: results.topTies.length,
+      tickAmount: results.topTies.length + 1,
+      reversed: true,
+      labels: {
+        formatter: function (value) {
+          return (value >= 0) ? results.topTies[value] || '' : ''
+        },
+        minWidth: 150,
+        maxWidth: 300,
+        align: 'right'
+      }
+    },
+    ...(grid) && { grid },
+    ...(tooltip) && { tooltip },
+    ...(legend) && { legend },
+    ...(fill) && { fill }
+  }
+  return apexChartOptionsWithData
+}
+
+export const createTopTimelineChartData2 = ({
+  resultClass,
+  facetClass,
+  perspectiveState,
+  results,
+  resultClassConfig,
+  screenSize
+}) => {
+  const {
+    title,
+    stroke,
+    fill,
+    tooltip,
+    xaxis,
+    yaxis,
+    grid
+  } = resultClassConfig
+  results.forEach(x => { x.name = intl.get(`lineChart.${x.name}`) || x.name })
+  const apexChartOptionsWithData = {
+    series: results,
+    chart: {
+      id: 'area-datetime',
+      type: 'area',
+      height: '100%'
+      /**
+       brush: { target: 'topN', enabled: true },
+       selection: {
+         enabled: true,
+         xaxis: {
+           min: results.minUTC,
+           max: results.maxUTC2
+          }
+        }
+        */
+    },
+    dataLabels: { enabled: false },
+    ...(title) && { title },
+    ...(xaxis) && { xaxis },
+    ...(yaxis) && { yaxis },
+    ...(grid) && { grid },
+    ...(tooltip) && { tooltip },
+    ...(stroke) && { stroke },
+    ...(fill) && { fill }
   }
   return apexChartOptionsWithData
 }
@@ -328,4 +439,155 @@ const apexBarChartOptions = {
       }
     }
   }
+}
+
+export const createApexTimelineChartData = ({
+  resultClass,
+  facetClass,
+  perspectiveState,
+  results,
+  resultClassConfig,
+  screenSize,
+  fetchInstanceAnalysis
+}) => {
+  const {
+    xaxisTitle,
+    yaxisTitle
+  } = resultClassConfig
+  let min
+  let max
+  if (results && results.length > 0) {
+    preprocessTimelineData(results)
+    min = new Date(results[0].beginDate).getTime()
+    max = new Date(results[results.length - 1].endDate).getTime()
+  }
+  const apexChartOptionsWithData = {
+    ...timelineOptions,
+    chart: {
+      type: 'rangeBar',
+      width: '100%',
+      height: '100%',
+      events: {
+        click: (event, chartContext, config) => {
+          if (chartContext.w.globals.initialSeries[config.seriesIndex]) {
+            const data = chartContext.w.globals.initialSeries[config.seriesIndex].data[config.dataPointIndex]
+            fetchInstanceAnalysis({
+              resultClass: `${resultClass}Dialog`,
+              facetClass,
+              period: data.period,
+              province: data.id
+            })
+          }
+        },
+        beforeResetZoom: (chartContext, opts) => {
+          return { xaxis: { min, max } }
+        }
+      }
+    },
+    xaxis: {
+      ...timelineOptions.xaxis,
+      title: {
+        text: xaxisTitle
+      },
+      min,
+      max
+    },
+    yaxis: { title: { text: yaxisTitle } },
+    series: results
+  }
+  return apexChartOptionsWithData
+}
+
+const timelineOptions = {
+  plotOptions: {
+    bar: {
+      horizontal: true,
+      barHeight: '70%'
+      // rangeBarGroupRows: true
+    }
+  },
+  colors: [
+    '#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0',
+    '#3F51B5', '#546E7A', '#D4526E', '#8D5B4C', '#F86624',
+    '#D7263D', '#1B998B', '#2E294E', '#F46036', '#E2C044'
+  ],
+  fill: {
+    type: 'solid'
+  },
+  xaxis: {
+    type: 'datetime',
+    labels: {
+      formatter: value => {
+        return new Date(value).getFullYear()
+      }
+    }
+  },
+  legend: {
+    position: 'top'
+  },
+  tooltip: {
+    custom: opts => {
+      const data = opts.w.globals.initialSeries[opts.seriesIndex].data[opts.dataPointIndex]
+      const { ylabel, seriesName } = opts.ctx.rangeBar.getTooltipValues(opts)
+      // const startYear = new Date(opts.y1).getFullYear()
+      // const endYear = new Date(opts.y2).getFullYear()
+      return `
+      <div class="apexcharts-custom-tooltip">
+        <p><b>Maakunta:</b> ${ylabel.replace(':', '')}</p>
+        <p><b>Aikakausi:</b> ${seriesName.replace(':', '')}</p>
+        <p><b>Löytöjen lukumäärä:</b> ${data.instanceCount}</p> 
+      </div>  
+    `
+    }
+    // fixed: {
+    //   enabled: true,
+    //   position: 'topLeft',
+    //   offsetX: 0,
+    //   offsetY: 0
+    // }
+  },
+  grid: {
+    borderColor: '#000',
+    // row: {
+    //   opacity: 0
+    // },
+    padding: {
+      right: 15
+    }
+  }
+}
+
+const preprocessTimelineData = rawData => {
+  const lengths = []
+  rawData.sort((a, b) => new Date(a.beginDate) - new Date(b.beginDate) || new Date(a.endDate) - new Date(b.endDate))
+  rawData.forEach((obj, index) => {
+    if (!Array.isArray(obj.data)) { obj.data = [obj.data] }
+    obj.data.forEach(dataObj => {
+      dataObj.y = [
+        new Date(obj.beginDate).getTime(),
+        new Date(obj.endDate).getTime()
+      ]
+    })
+    obj.data.sort((a, b) => a.x.localeCompare(b.x))
+    lengths.push({ index, length: obj.data.length })
+  })
+  lengths.sort((a, b) => b.length - a.length)
+  if (rawData[0].data.length < lengths[0].length) {
+    const indexOfLongestArr = lengths[0].index
+    /*
+    * The first data array must hold all possible values,
+    * because it is used for sortable y-axis.
+    */
+    rawData[indexOfLongestArr].data.forEach((obj, index) => {
+      if (!rawData[0].data.find(x => x.id === obj.id)) {
+        rawData[0].data.push({
+          id: obj.id,
+          x: obj.x,
+          y: [null, null],
+          instanceCount: 0
+        })
+      }
+    })
+  }
+  rawData[0].data.sort((a, b) => a.x.localeCompare(b.x))
 }
